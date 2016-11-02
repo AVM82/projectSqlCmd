@@ -17,24 +17,20 @@ public class DBFireBird extends DataBase{
         }else{
             port = "3050";
         }
-//        dbaseName = paramLine[2];
-//        userName = paramLine[3];
-//        password = paramLine[4];
 
         if (paramLine.length > NO_DB){
             dbaseName = paramLine[index++];
 
         }
         else{
-            //throw new Exception("");
-            dbaseName = "";
+            throw new Exception("Not supported.");
         }
 
         userName = paramLine[index++];
         password = paramLine[index];
 
         Class.forName("org.firebirdsql.jdbc.FBDriver");
-        connection = DriverManager.getConnection("jdbc:firebirdsql:"+server+"/"+port + dbaseName,//":"+dbaseName,
+        connection = DriverManager.getConnection("jdbc:firebirdsql:"+server+"/"+port + ":"+dbaseName,
                 userName,password);
         DBaseType = "FireBird> ";
         //-fb -DBServer:3050 -D:/Andromeda/TestDB/DBase.FDB -SYSDBA -masterkey

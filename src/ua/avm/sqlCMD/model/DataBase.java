@@ -16,7 +16,7 @@ public abstract class DataBase implements DBManager{
     protected String DBaseType = "> ";
     private static DataBase dataBase;
     protected final int NO_DB = 4; // count of parameters without database
-    protected int index = 2; // index of database parameters
+    protected int index = 2; // index of dbName parameters
 
 
     public static DataBase initDB(String url){
