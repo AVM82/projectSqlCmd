@@ -10,7 +10,7 @@ public class DBFireBird extends DataBase{
 
     public DBFireBird(String[] paramLine) throws Exception {
 
-        String[] dbs = paramLine[1].split(":");
+        String[] dbs = paramLine[2].split(":");
         server = dbs[0];
         if (dbs.length > 1){
             port = dbs[1];
@@ -32,6 +32,7 @@ public class DBFireBird extends DataBase{
         Class.forName("org.firebirdsql.jdbc.FBDriver");
         connection = DriverManager.getConnection("jdbc:firebirdsql:"+server+"/"+port + ":"+dbaseName,
                 userName,password);
+
         DBaseType = "FireBird> ";
         //-fb -DBServer:3050 -D:/Andromeda/TestDB/DBase.FDB -SYSDBA -masterkey
         //-fb -DBServer:3050 -SYSDBA -masterkey

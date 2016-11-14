@@ -9,7 +9,7 @@ import java.sql.DriverManager;
 public class MSServer extends DataBase{
 
     public MSServer(String[] paramLine) throws Exception {
-        String[] dbs = paramLine[1].split(":");
+        String[] dbs = paramLine[2].split(":");
         server = dbs[0];
         if (dbs.length > 1){
             port = dbs[1];

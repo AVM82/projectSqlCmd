@@ -17,11 +17,11 @@ public class sqlCmdMain {
         view.writeln("DBMS:\n-fb\tFireBird (DB_Name = full_path\\DB_Name.fdb)\n-ms\tMS SQL Server\n-pg\tPostgreSQL");
         view.writeln("For connect to DB please enter: -DBMS -DB_Server[:port] [-DB_Name] -user -password");
 
-        while(!ctrl.connect(view, view.read())){
-
-            view.writeln("Server connection is not established.");
-
-        }
+//        while(!ctrl.connect(view, view.read())){
+//
+//            view.writeln("Server connection is not established.");
+//
+//        }
         ctrl.run(view);
     }
 }

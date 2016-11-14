@@ -2,28 +2,31 @@ package ua.avm.sqlCMD.controller.command;
 
 import ua.avm.sqlCMD.view.View;
 
+
 /**
- * Created by AVM on 02.11.2016.
+ * Created by AVM on 04.11.2016.
  */
-public class Exit implements Command {
+public class Disconnect implements Command {
 
     private final View view;
 
-    public Exit(View view) {
+
+
+    public Disconnect(View view) {
 
         this.view = view;
+
     }
 
     @Override
     public boolean canDoIt(String command) {
-        return "exit".equals(command);
+        return "disconnect".equals(command);
     }
 
     @Override
     public boolean doIt(String[] command) {
-        view.write("The work is completed");
-        System.exit(0);
 
+        view.writeln("Connection with database is closed.");
         return true;
     }
 }

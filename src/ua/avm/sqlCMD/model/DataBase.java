@@ -1,6 +1,7 @@
 package ua.avm.sqlCMD.model;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * Created by AVM on 12.10.2016.
@@ -15,24 +16,24 @@ public abstract class DataBase implements DBManager{
     Connection connection = null;
     protected String DBaseType = "> ";
     private static DataBase dataBase;
-    protected final int NO_DB = 4; // count of parameters without database
-    protected int index = 2; // index of dbName parameters
+    protected final int NO_DB = 5; // count of parameters without database
+    protected int index = 3; // index of dbName parameters
 
 
-    public static DataBase initDB(String url){
-        String[] paramLine = url.split("\u0020"+"-");
+    public static DataBase initDB(String[] paramLine){
+//        String[] paramLine = url.split("\u0020"+"-");
 
         try{
             //connect to FireBird
-            if (paramLine[0].equals("-fb")){
+            if (paramLine[1].equals("fb")){
                 dataBase = new DBFireBird(paramLine);
             }
             //connect to MS SQL Server
-            if (paramLine[0].equals("-ms")){
+            if (paramLine[1].equals("ms")){
                  dataBase = new MSServer(paramLine);
             }
             //connect to PostgreSQL
-            if (paramLine[0].equals("-pg")){
+            if (paramLine[1].equals("pg")){
                  dataBase = new PostgreSQL(paramLine);
             }
 
@@ -53,6 +54,21 @@ public abstract class DataBase implements DBManager{
 
     public String getDBaseType() {
         return DBaseType;
+    }
+
+
+    public void closeConnection() {
+
+        try {
+
+            connection.close();
+            DBaseType = "> ";
+        } catch (SQLException e) {
+            String message = e.getMessage();
+
+            System.out.println("Close connection error. \n"+ message);
+        }
+
     }
 
 
