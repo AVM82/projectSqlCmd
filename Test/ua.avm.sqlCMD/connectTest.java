@@ -11,6 +11,7 @@ import ua.avm.sqlCMD.model.PostgreSQL;
 import ua.avm.sqlCMD.view.Console;
 import ua.avm.sqlCMD.view.View;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -32,7 +33,7 @@ public class connectTest {
     public void setup() throws Exception {
         View view = new Console();
         ctrl = new Controller(view);
-        cmd = new Connect(new PostgreSQL(postgreSQL),view);
+        cmd = new Connect(view);
     }
 
     @Test

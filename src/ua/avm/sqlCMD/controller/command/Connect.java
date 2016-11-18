@@ -11,9 +11,8 @@ public class Connect implements Command {
     private final View view;
     private DataBase db;
 
-    public Connect(DataBase db, View view) {
+    public Connect(View view) {
 
-        this.db = db;
         this.view = view;
     }
 
@@ -24,6 +23,16 @@ public class Connect implements Command {
 
     @Override
     public boolean doIt(String[] command) {
+        db = this.getDb(command);
+        if (db == null){
+            return false;
+
+        }else{
+            return true;
+        }
+    }
+
+    public DataBase getDb(String[] command) {
 
         if (command[0].equals("exit")){
             new Exit(view).doIt(null);
@@ -31,10 +40,10 @@ public class Connect implements Command {
         db = DataBase.initDB(command);
         if (db == null){
             view.setPrefix("Try again> ");
-            return false;
+            return null;
         }
         view.setPrefix(db.getDBaseType());
-        return true;
+        return db;
 
 
 

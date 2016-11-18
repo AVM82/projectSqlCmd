@@ -31,6 +31,6 @@ public class PostgreSQL extends DataBase{
         //connection = DriverManager.getConnection("jdbc:postgresql://"+server+":"+port+"/",userName,password);
         DBaseType = "PostgreSQL> ";
 
-        //-pg -localhost -test -postgres -function root
+        //connect -pg -localhost -test -postgres -function root
     }
 }

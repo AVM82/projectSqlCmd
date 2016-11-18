@@ -15,7 +15,7 @@ public abstract class DataBase implements DBManager{
     protected String server;
     Connection connection = null;
     protected String DBaseType = "> ";
-    private static DataBase dataBase;
+    private static  DataBase dataBase;
     protected final int NO_DB = 5; // count of parameters without database
     protected int index = 3; // index of dbName parameters
 
@@ -72,5 +72,8 @@ public abstract class DataBase implements DBManager{
     }
 
 
+    public Connection getConnection() {
+        return connection;
+    }
 }
 
