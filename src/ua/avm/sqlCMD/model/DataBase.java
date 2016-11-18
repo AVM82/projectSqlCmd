@@ -13,20 +13,31 @@ public abstract class DataBase implements DBManager{
     protected String dbaseName;
     protected String port;
     protected String server;
+
+    private boolean isConnect;
+
     Connection connection = null;
     protected String DBaseType = "> ";
     private static  DataBase dataBase;
     protected final int NO_DB = 5; // count of parameters without database
     protected int index = 3; // index of dbName parameters
 
+    public boolean isConnect() {
+        return isConnect;
+    }
+
+    public void setConnect(boolean connect) {
+        isConnect = connect;
+    }
+
 
     public static DataBase initDB(String[] paramLine){
-//        String[] paramLine = url.split("\u0020"+"-");
 
         try{
             //connect to FireBird
             if (paramLine[1].equals("fb")){
                 dataBase = new DBFireBird(paramLine);
+
             }
             //connect to MS SQL Server
             if (paramLine[1].equals("ms")){
@@ -41,6 +52,7 @@ public abstract class DataBase implements DBManager{
                 throw new Exception("\u001B[31m"+"DBMS is selected incorrectly");
             }
 
+            dataBase.setConnect(true);
             System.out.println("The connection to the server has been established!");
         }
         catch (Exception e){
@@ -62,6 +74,7 @@ public abstract class DataBase implements DBManager{
         try {
 
             connection.close();
+            dataBase.setConnect(false);
             DBaseType = "> ";
         } catch (SQLException e) {
             String message = e.getMessage();

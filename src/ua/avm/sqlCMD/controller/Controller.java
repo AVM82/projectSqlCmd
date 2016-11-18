@@ -17,21 +17,20 @@ public class Controller {
 
     private boolean connected = false;
     DataBase db;
-//    private final Command [] command;
     View view;
 
     public Controller(View view) {
         this.view = view;
     }
 
-    public void run(View view) throws SQLException {
+    public void run(View view) {
 
         while(true){
             String[] inputCommand;
 
 
-            if ((db == null) || (db.getConnection().isClosed()) ) {
-                view.writeln("You must connect to the database");
+            if ((db == null) || (db.isConnect()) ) {
+                view.writeln("You need to connect to the database to continue");
                 view.writeln("DBMS:\n-fb\tFireBird (DB_Name = full_path\\DB_Name.fdb)\n-ms\tMS SQL Server\n-pg\tPostgreSQL");
                 view.writeln("For connect to DB please enter: connect -DBMS -DB_Server[:port] [-DB_Name] -user -password");
                 inputCommand = view.read().split("\u0020"+"-");

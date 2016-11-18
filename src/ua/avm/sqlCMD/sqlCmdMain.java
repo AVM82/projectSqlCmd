@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class sqlCmdMain {
 
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         View view = new Console();
 
         Controller ctrl = new Controller(view);
