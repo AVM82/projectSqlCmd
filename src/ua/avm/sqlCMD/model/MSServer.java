@@ -2,6 +2,7 @@ package ua.avm.sqlCMD.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.HashMap;
 
 /**
  * Created by AVM on 11.10.2016.
@@ -31,4 +32,8 @@ public class MSServer extends DataBase{
         DBaseType = "MS SQL Server> ";
     }
 
+    @Override
+    public HashMap<String, String> getListDB() {
+        return null;
+    }
 }

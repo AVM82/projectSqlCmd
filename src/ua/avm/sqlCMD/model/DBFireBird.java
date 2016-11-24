@@ -2,10 +2,12 @@ package ua.avm.sqlCMD.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.HashMap;
 
 /**
  * Created by AVM on 12.10.2016.
  */
+
 public class DBFireBird extends DataBase{
 
     public DBFireBird(String[] paramLine) throws Exception {
@@ -37,5 +39,10 @@ public class DBFireBird extends DataBase{
         //-fb -DBServer:3050 -D:/Andromeda/TestDB/DBase.FDB -SYSDBA -masterkey
         //-fb -DBServer:3050 -SYSDBA -masterkey
 
+    }
+
+    @Override
+    public HashMap<String, String> getListDB() {
+        return null;
     }
 }

@@ -1,13 +1,8 @@
 package ua.avm.sqlCMD.controller;
 
-import ua.avm.sqlCMD.controller.command.Command;
-import ua.avm.sqlCMD.controller.command.Connect;
-import ua.avm.sqlCMD.controller.command.Disconnect;
-import ua.avm.sqlCMD.controller.command.Exit;
+import ua.avm.sqlCMD.controller.command.*;
 import ua.avm.sqlCMD.model.DataBase;
 import ua.avm.sqlCMD.view.View;
-
-import java.sql.SQLException;
 
 
 /**
@@ -41,7 +36,9 @@ public class Controller {
             }
 
             final Command[] command = new Command[]{    new Exit(view),
-                                                        new Disconnect(db, view) };
+                                                        new Disconnect(db, view),
+                                                        new ListDB(db, view)
+                                                    };
 
             for (Command cmd: command) {
                 if (cmd.canDoIt(inputCommand[0])) {
