@@ -47,6 +47,7 @@ public class PostgreSQL extends DataBase{
                 result.put(resultSet.getString("Database"), resultSet.getString("Owner"));
             }
 
+            resultSet.close();
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();

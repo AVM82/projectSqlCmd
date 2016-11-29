@@ -24,7 +24,7 @@ public class Controller {
             String[] inputCommand;
 
 
-            if ((db == null) || (db.isConnect()) ) {
+            if ((db == null) || (!db.isConnect()) ) {
                 view.writeln("You need to connect to the database to continue");
                 view.writeln("DBMS:\n-fb\tFireBird (DB_Name = full_path\\DB_Name.fdb)\n-ms\tMS SQL Server\n-pg\tPostgreSQL");
                 view.writeln("For connect to DB please enter: connect -DBMS -DB_Server[:port] [-DB_Name] -user -password");

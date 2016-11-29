@@ -9,7 +9,7 @@ import java.util.HashMap;
  */
 public interface DBManager {
 
-    public HashMap<String, String> getListDB();
+    HashMap<String, String> getListDB();
 
 
 }

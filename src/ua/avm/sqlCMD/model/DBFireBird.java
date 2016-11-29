@@ -36,13 +36,14 @@ public class DBFireBird extends DataBase{
                 userName,password);
 
         DBaseType = "FireBird> ";
-        //-fb -DBServer:3050 -D:/Andromeda/TestDB/DBase.FDB -SYSDBA -masterkey
+        //connect -fb -DBServer:3050 -D:/Andromeda/TestDB/DBase.FDB -SYSDBA -masterkey
         //-fb -DBServer:3050 -SYSDBA -masterkey
 
     }
 
     @Override
     public HashMap<String, String> getListDB() {
+        //not supported
         return null;
     }
 }
