@@ -29,22 +29,20 @@ public class MSServer extends DataBase{
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         connection = DriverManager.getConnection("jdbc:sqlserver://"+server+":"+port,
                 userName,password);
-        DBaseType = "MS SQL Server> ";
+        DBaseType = MSSQLSERVER;
     }
 
     @Override
     public HashMap<String, String> getListDB() {
 
-
-
         HashMap<String, String> result = new HashMap<>();
-        Statement statement = null;
+        Statement statement;
         try {
             statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT name, suser_sname(owner_sid) as \"owner\" FROM sys.databases WHERE database_id > 6");
+            ResultSet resultSet = statement.executeQuery("SELECT name, suser_sname(owner_sid) FROM sys.databases WHERE database_id > 6");
 
             while (resultSet.next()){
-                result.put(resultSet.getString("name"), resultSet.getString("owner"));
+                result.put(resultSet.getString(1), resultSet.getString(2));
             }
 
             resultSet.close();

@@ -17,7 +17,10 @@ public abstract class DataBase implements DBManager{
     private boolean isConnect;
 
     Connection connection = null;
-    protected String DBaseType = "> ";
+    String DBaseType = "> ";
+    final String FIREBIRD = "FireBird> ";
+    final String MSSQLSERVER = "MS SQL Server> ";
+    final String POSTGRESQL = "PostgreSQL> ";
     private static  DataBase dataBase;
     protected final int NO_DB = 5; // count of parameters without database
     protected int index = 3; // index of dbName parameters

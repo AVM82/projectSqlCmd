@@ -28,7 +28,7 @@ public class PostgreSQL extends DataBase{
         password = paramLine[index];
         Class.forName("org.postgresql.Driver");
         connection = DriverManager.getConnection("jdbc:postgresql://"+server+":"+port+"/"+dbaseName,userName,password);
-        DBaseType = "PostgreSQL> ";
+        DBaseType = POSTGRESQL;
 
         //connect -pg -localhost -test -postgres -function root
     }
@@ -39,12 +39,12 @@ public class PostgreSQL extends DataBase{
         Statement statement;
         try {
             statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT pg_database.datname as \"Database\", " +
-                    "pg_user.usename as \"Owner\" FROM pg_database, pg_user " +
+            ResultSet resultSet = statement.executeQuery("SELECT pg_database.datname, " +
+                    "pg_user.usename FROM pg_database, pg_user " +
                     " WHERE pg_database.datdba = pg_user.usesysid and datistemplate = false");
 
             while (resultSet.next()){
-                result.put(resultSet.getString("Database"), resultSet.getString("Owner"));
+                result.put(resultSet.getString(1), resultSet.getString(2));
             }
 
             resultSet.close();

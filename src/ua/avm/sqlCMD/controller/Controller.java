@@ -30,6 +30,7 @@ public class Controller {
                 view.writeln("For connect to DB please enter: connect -DBMS -DB_Server[:port] [-DB_Name] -user -password");
                 inputCommand = view.read().split("\u0020"+"-");
                 db = new Connect(view).getDb(inputCommand);
+                continue;
             }else{
                 view.writeln("Enter the command or \"-?\" for help.");
                 inputCommand = view.read().split("\u0020"+"-");

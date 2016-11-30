@@ -35,7 +35,7 @@ public class DBFireBird extends DataBase{
         connection = DriverManager.getConnection("jdbc:firebirdsql:"+server+"/"+port + ":"+dbaseName,
                 userName,password);
 
-        DBaseType = "FireBird> ";
+        DBaseType = FIREBIRD;
         //connect -fb -DBServer:3050 -D:/Andromeda/TestDB/DBase.FDB -SYSDBA -masterkey
         //-fb -DBServer:3050 -SYSDBA -masterkey
 

@@ -30,7 +30,7 @@ public class ListDB implements Command {
     @Override
     public boolean doIt(String[] command) {
 
-        int sizeCol = 20;
+        int sizeCol = 20;//column size
 
         Map <String, String> tableList = db.getListDB();
         if (tableList == null) {
@@ -53,10 +53,10 @@ public class ListDB implements Command {
             view.write("=");
         }
         view.writeln("");
-        for (Map.Entry<String, String> me : set) {
+        for (Map.Entry<String, String> value : set) {
 
-            String string1 = me.getKey();
-            String string2 = me.getValue();
+            String string1 = value.getKey();
+            String string2 = value.getValue();
             view.write("|");
             view.fWriteln(string1,sizeCol);
             view.write("|");
