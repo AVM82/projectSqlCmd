@@ -6,8 +6,8 @@ import java.util.HashMap;
 /**
  * Created by AVM on 11.10.2016.
  */
+//connect -ms -DBServer -Test -sa -SQL_master
 public class MSServer extends DataBase{
-    //connect -ms -DBServer -Test -sa -SQL_master
 
     public MSServer(String[] paramLine) throws Exception {
         String[] dbs = paramLine[2].split(":");
@@ -52,6 +52,18 @@ public class MSServer extends DataBase{
         }
 
         return result;
+    }
+
+    @Override
+    public boolean createDB(String dbName) {
+        try {
+            connection.createStatement().execute("CREATE DATABASE "+dbName);
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
     }
 
 }

@@ -22,14 +22,9 @@ public class Connect implements Command {
     }
 
     @Override
-    public boolean doIt(String[] command) {
+    public void doIt(String[] command) {
         db = this.getDb(command);
-        if (db == null){
-            return false;
 
-        }else{
-            return true;
-        }
     }
 
     public DataBase getDb(String[] command) {

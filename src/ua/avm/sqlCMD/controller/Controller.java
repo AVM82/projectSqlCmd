@@ -10,7 +10,7 @@ import ua.avm.sqlCMD.view.View;
  */
 public class Controller {
 
-    private boolean connected = false;
+//    private boolean connected = false;
     DataBase db;
     View view;
 
@@ -25,9 +25,13 @@ public class Controller {
 
 
             if ((db == null) || (!db.isConnect()) ) {
+                view.writeln("");
+                view.writeln("***********************************************************************************************");
                 view.writeln("You need to connect to the database to continue");
                 view.writeln("DBMS:\n-fb\tFireBird (DB_Name = full_path\\DB_Name.fdb)\n-ms\tMS SQL Server\n-pg\tPostgreSQL");
                 view.writeln("For connect to DB please enter: connect -DBMS -DB_Server[:port] [-DB_Name] -user -password");
+                view.writeln("***********************************************************************************************");
+                view.writeln("");
                 inputCommand = view.read().split("\u0020"+"-");
                 db = new Connect(view).getDb(inputCommand);
                 continue;
@@ -38,7 +42,8 @@ public class Controller {
 
             final Command[] command = new Command[]{    new Exit(view),
                                                         new Disconnect(db, view),
-                                                        new ListDB(db, view)
+                                                        new ListDB(db, view),
+                                                        new CreateDB(db, view)
                                                     };
 
             for (Command cmd: command) {

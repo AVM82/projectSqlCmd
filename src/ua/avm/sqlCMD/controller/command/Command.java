@@ -7,7 +7,7 @@ public interface Command {
 
     boolean canDoIt(String command);
 
-    boolean doIt(String[] command);
+    void doIt(String[] command);
 
 
 

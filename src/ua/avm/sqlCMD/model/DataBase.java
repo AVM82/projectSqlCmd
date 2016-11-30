@@ -61,7 +61,7 @@ public abstract class DataBase implements DBManager{
         catch (Exception e){
             String message = e.getMessage();
 
-            System.out.println("Connection error. \n"+ message);
+            System.err.println("Connection error. \n"+ message);
         }
 
         return dataBase;

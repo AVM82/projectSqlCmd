@@ -13,7 +13,7 @@ import java.util.StringJoiner;
  */
 public class ListDB implements Command {
     private final View view;
-    private DataBase db;
+    private final DataBase db;
 
     public ListDB(DataBase db, View view) {
 
@@ -28,14 +28,13 @@ public class ListDB implements Command {
     }
 
     @Override
-    public boolean doIt(String[] command) {
+    public void doIt(String[] command) {
 
         int sizeCol = 20;//column size
 
         Map <String, String> tableList = db.getListDB();
         if (tableList == null) {
             view.warningWriteln("Command not supported for this database.");
-            return false;
         }
 
         Set<Map.Entry<String, String>> set = tableList.entrySet();
@@ -69,6 +68,5 @@ public class ListDB implements Command {
         }
         System.out.println("");
 
-        return false;
     }
 }

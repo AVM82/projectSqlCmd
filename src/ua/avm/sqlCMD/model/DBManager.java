@@ -11,5 +11,7 @@ public interface DBManager {
 
     HashMap<String, String> getListDB();
 
+    boolean createDB(String dbName);
+
 
 }

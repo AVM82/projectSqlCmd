@@ -27,7 +27,7 @@ public class Disconnect implements Command {
     }
 
     @Override
-    public boolean doIt(String[] command) {
+    public void doIt(String[] command) {
 
         if (db == null){
             view.writeln("There are no active connections!");
@@ -39,6 +39,5 @@ public class Disconnect implements Command {
             view.writeln("Connection with database is closed.");
         }
 
-        return true;
     }
 }

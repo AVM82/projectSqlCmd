@@ -11,7 +11,9 @@ public class Console implements View {
 
     @Override
     public void writeln(String message) {
+
         System.out.println("\u001B[32m" + message);
+
     }
 
     @Override

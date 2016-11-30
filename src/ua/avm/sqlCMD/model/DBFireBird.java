@@ -1,12 +1,16 @@
 package ua.avm.sqlCMD.model;
 
-import java.sql.Connection;
+import org.firebirdsql.management.FBManager;
+
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
  * Created by AVM on 12.10.2016.
  */
+//connect -fb -DBServer:3050 -D:/Andromeda/TestDB/DBase.FDB -SYSDBA -masterkey
+//connect -fb -DBServer:3050 -SYSDBA -masterkey
 
 public class DBFireBird extends DataBase{
 
@@ -25,6 +29,7 @@ public class DBFireBird extends DataBase{
 
         }
         else{
+
             throw new Exception("Not supported.");
         }
 
@@ -36,8 +41,6 @@ public class DBFireBird extends DataBase{
                 userName,password);
 
         DBaseType = FIREBIRD;
-        //connect -fb -DBServer:3050 -D:/Andromeda/TestDB/DBase.FDB -SYSDBA -masterkey
-        //-fb -DBServer:3050 -SYSDBA -masterkey
 
     }
 
@@ -45,5 +48,29 @@ public class DBFireBird extends DataBase{
     public HashMap<String, String> getListDB() {
         //not supported
         return null;
+    }
+
+    @Override
+    public boolean createDB(String dbName) {
+        try {
+
+            FBManager fbManager = new FBManager();
+            fbManager.setServer(server);
+            fbManager.setPort(Integer.valueOf(port));
+            fbManager.setUserName("sysdba");
+            fbManager.setPassword("masterkey");
+            fbManager.start();
+            fbManager.createDatabase(dbName,userName, password);
+            fbManager.stop();
+
+
+//            connection.createStatement().execute("CREATE DATABASE '"+server+"/gds_db:"+dbName+"' user '"+userName+"' password '"+password+"'");
+            return true;
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+
     }
 }

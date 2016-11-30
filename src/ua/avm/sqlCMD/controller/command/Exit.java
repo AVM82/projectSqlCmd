@@ -20,10 +20,8 @@ public class Exit implements Command {
     }
 
     @Override
-    public boolean doIt(String[] command) {
+    public void doIt(String[] command) {
         view.write("The work is completed");
         System.exit(0);
-
-        return true;
     }
 }

@@ -6,6 +6,7 @@ import java.util.HashMap;
 /**
  * Created by AVM on 12.10.2016.
  */
+//connect -pg -localhost -test -postgres -function root
 public class PostgreSQL extends DataBase{
 
     public PostgreSQL(String[] paramLine) throws Exception {
@@ -16,7 +17,6 @@ public class PostgreSQL extends DataBase{
         }else{
             port = "5432";
         }
-//        int index = 3;
 
         if (paramLine.length > NO_DB){
             dbaseName = paramLine[index++];
@@ -30,7 +30,6 @@ public class PostgreSQL extends DataBase{
         connection = DriverManager.getConnection("jdbc:postgresql://"+server+":"+port+"/"+dbaseName,userName,password);
         DBaseType = POSTGRESQL;
 
-        //connect -pg -localhost -test -postgres -function root
     }
 
     @Override
@@ -54,5 +53,18 @@ public class PostgreSQL extends DataBase{
         }
 
         return result;
+    }
+
+    @Override
+    public boolean createDB(String dbName) {
+        try {
+            connection.createStatement().execute("CREATE DATABASE "+dbName+" WITH OWNER = "+userName);
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+
     }
 }
