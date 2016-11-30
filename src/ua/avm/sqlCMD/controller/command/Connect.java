@@ -37,7 +37,12 @@ public class Connect implements Command {
         if (command[0].equals("exit")){
             new Exit(view).doIt(null);
         }
-        db = DataBase.initDB(command);
+        if (canDoIt(command[0])){
+
+            db = DataBase.initDB(command);
+        }else{
+            view.warningWriteln("Error command.");
+        }
         if (db == null){
             view.setPrefix("Try again> ");
             return null;
