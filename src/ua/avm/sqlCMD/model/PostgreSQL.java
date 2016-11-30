@@ -36,7 +36,7 @@ public class PostgreSQL extends DataBase{
     @Override
     public HashMap<String, String> getListDB(){
         HashMap<String, String> result = new HashMap<>();
-        Statement statement = null;
+        Statement statement;
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT pg_database.datname as \"Database\", " +
