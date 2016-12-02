@@ -1,5 +1,6 @@
 package ua.avm.sqlCMD.model;
 
+
 import java.sql.*;
 import java.util.HashMap;
 
@@ -66,5 +67,33 @@ public class PostgreSQL extends DataBase{
             return false;
         }
 
+    }
+
+    @Override
+    public boolean isDataBaseExist(String dbName) {
+        try {
+            ResultSet resultSet = connection.createStatement().executeQuery("SELECT 1 FROM pg_database WHERE datname = '"+dbName+"'");
+            if((resultSet.next())&&(resultSet.getBoolean(1))){
+                return true;
+            }else{
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean dropDB(String dbName) {
+        try {
+            connection.createStatement().execute("DROP DATABASE "+dbName);
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
     }
 }

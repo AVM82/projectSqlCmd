@@ -66,5 +66,15 @@ public class MSServer extends DataBase{
         }
     }
 
+    @Override
+    public boolean isDataBaseExist(String dbName) {
+        return false;
+    }
+
+    @Override
+    public boolean dropDB(String dbName) {
+        return false;
+    }
+
 }
 

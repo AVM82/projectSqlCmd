@@ -6,13 +6,7 @@ import ua.avm.sqlCMD.controller.command.Connect;
 import ua.avm.sqlCMD.model.DataBase;
 import ua.avm.sqlCMD.view.Console;
 import ua.avm.sqlCMD.view.View;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;

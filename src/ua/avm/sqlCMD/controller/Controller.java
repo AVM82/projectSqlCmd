@@ -43,7 +43,8 @@ public class Controller {
             final Command[] command = new Command[]{    new Exit(view),
                                                         new Disconnect(db, view),
                                                         new ListDB(db, view),
-                                                        new CreateDB(db, view)
+                                                        new CreateDB(db, view),
+                                                        new DropDB(db, view)
                                                     };
 
             for (Command cmd: command) {

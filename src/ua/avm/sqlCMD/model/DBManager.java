@@ -13,5 +13,8 @@ public interface DBManager {
 
     boolean createDB(String dbName);
 
+    boolean isDataBaseExist(String dbName);
 
+
+    boolean dropDB(String dbName);
 }

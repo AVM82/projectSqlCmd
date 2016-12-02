@@ -29,7 +29,7 @@ public class DBFireBird extends DataBase{
 
         }
         else{
-
+            //TODO query to user for create database
             throw new Exception("Not supported.");
         }
 
@@ -62,9 +62,6 @@ public class DBFireBird extends DataBase{
             fbManager.start();
             fbManager.createDatabase(dbName,userName, password);
             fbManager.stop();
-
-
-//            connection.createStatement().execute("CREATE DATABASE '"+server+"/gds_db:"+dbName+"' user '"+userName+"' password '"+password+"'");
             return true;
 
         } catch (Exception e) {
@@ -72,5 +69,44 @@ public class DBFireBird extends DataBase{
             return false;
         }
 
+    }
+
+    @Override
+    public boolean isDataBaseExist(String dbName) {
+    try{
+        FBManager fbManager = new FBManager();
+        fbManager.setServer(server);
+        fbManager.setPort(Integer.valueOf(port));
+        fbManager.setUserName("sysdba");
+        fbManager.setPassword("masterkey");
+        fbManager.start();
+        boolean exist = fbManager.isDatabaseExists(dbName,userName, password);
+        fbManager.stop();
+        return exist;
+
+    } catch (Exception e) {
+        System.err.println(e.getMessage());
+        return false;
+    }
+    }
+
+    @Override
+    public boolean dropDB(String dbName){
+        try{
+
+            FBManager fbManager = new FBManager();
+            fbManager.setServer(server);
+            fbManager.setPort(Integer.valueOf(port));
+            fbManager.setUserName("sysdba");
+            fbManager.setPassword("masterkey");
+            fbManager.start();
+            fbManager.dropDatabase(dbName,userName, password);
+            fbManager.stop();
+            return true;
+
+        } catch(Exception e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
     }
 }
