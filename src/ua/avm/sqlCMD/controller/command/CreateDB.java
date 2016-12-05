@@ -24,7 +24,7 @@ public class CreateDB implements Command {
 
     @Override
     public void doIt(String[] command) {
-
+        //TODO запросить подтверждение удаления
         if(db.createDB(command[1])){
 
             view.writeln("DataBase with name \""+command[1]+"\" is created successfully");

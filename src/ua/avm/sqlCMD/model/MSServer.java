@@ -68,12 +68,32 @@ public class MSServer extends DataBase{
 
     @Override
     public boolean isDataBaseExist(String dbName) {
-        return false;
+
+        try {
+            ResultSet resultSet = connection.createStatement().executeQuery("SELECT 1 FROM master.dbo.sysdatabases " +
+                    "as t WHERE t.name = '"+dbName+"'");
+            if((resultSet.next())&&(resultSet.getBoolean(1))){
+                return true;
+            }else{
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
     }
 
     @Override
     public boolean dropDB(String dbName) {
-        return false;
+        try {
+            connection.createStatement().execute("DROP DATABASE "+dbName);
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
     }
 
 }

@@ -53,6 +53,12 @@ public class createDropDB {
     @Test
     public void testCreateDBMSServer(){
 
+        db = new Connect(view).getDb(msServer);
+        new CreateDB(db, view).doIt(new String[] {"","newdb"});
+        assertTrue(db.isDataBaseExist("newdb"));
+        new DropDB(db,view).doIt(new String[] {"","newdb"});
+        assertFalse(db.isDataBaseExist("newdb"));
+
 
 
     }
