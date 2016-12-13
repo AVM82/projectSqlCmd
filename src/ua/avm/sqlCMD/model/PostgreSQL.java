@@ -3,6 +3,7 @@ package ua.avm.sqlCMD.model;
 
 import java.sql.*;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by AVM on 12.10.2016.
@@ -95,5 +96,28 @@ public class PostgreSQL extends DataBase{
             System.err.println(e.getMessage());
             return false;
         }
+    }
+
+    @Override
+    public Map<String, String> getListTable() {
+        HashMap<String, String> result = new HashMap<>();
+        Statement statement;
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT relname,n_live_tup FROM pg_stat_user_tables");
+
+            while (resultSet.next()){
+                result.put(resultSet.getString(1), resultSet.getString(2));
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
+
     }
 }

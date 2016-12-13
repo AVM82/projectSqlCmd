@@ -3,14 +3,16 @@ package ua.avm.sqlCMD.model;
 import org.firebirdsql.management.FBManager;
 
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by AVM on 12.10.2016.
  */
-//connect -fb -DBServer:3050 -D:/Andromeda/TestDB/DBase.FDB -SYSDBA -masterkey
-//connect -fb -DBServer:3050 -SYSDBA -masterkey
+//connect -fb -DBServer:3050 -D:/Andromeda/TestDB/sqlCMD.FDB -SYSDBA -masterkey
 
 public class DBFireBird extends DataBase{
 
@@ -108,5 +110,47 @@ public class DBFireBird extends DataBase{
             System.err.println(e.getMessage());
             return false;
         }
+    }
+
+    @Override
+    public Map<String, String> getListTable() {
+        HashMap<String, String> result = new HashMap<>();
+        Statement statement;
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("EXECUTE BLOCK " +
+                    "returns ( tab varchar(30), cnt integer, stm varchar(60) ) " +
+                    "as " +
+                    "BEGIN " +
+                    "for select trim(r.RDB$RELATION_NAME), cast('select count(*) from \"'||trim(r.RDB$RELATION_NAME)||'\"' as varchar(60)) " +
+                    "from RDB$RELATIONS r " +
+                    "where (r.RDB$SYSTEM_FLAG is null or r.RDB$SYSTEM_FLAG = 0) and r.RDB$VIEW_BLR is null " +
+                    "order by 1 " +
+                    "into :tab, :stm " +
+                    "DO " +
+                    "BEGIN " +
+                    "execute statement :stm into :cnt; " +
+                    "suspend; " +
+                    "END " +
+                    "END ");
+
+            while (resultSet.next()){
+                result.put(resultSet.getString(1), resultSet.getString(2));
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
+
+
+
+
+
+
     }
 }

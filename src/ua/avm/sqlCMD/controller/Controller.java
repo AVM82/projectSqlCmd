@@ -44,7 +44,8 @@ public class Controller {
                                                         new Disconnect(db, view),
                                                         new ListDB(db, view),
                                                         new CreateDB(db, view),
-                                                        new DropDB(db, view)
+                                                        new DropDB(db, view),
+                                                        new ListTab(db, view)
                                                     };
 
             for (Command cmd: command) {

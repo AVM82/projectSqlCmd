@@ -18,6 +18,7 @@ public class Connect implements Command {
 
     @Override
     public boolean canDoIt(String command) {
+
         return "connect".equals(command);
     }
 

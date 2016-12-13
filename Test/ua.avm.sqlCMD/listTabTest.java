@@ -7,6 +7,8 @@ import ua.avm.sqlCMD.model.DataBase;
 import ua.avm.sqlCMD.view.Console;
 import ua.avm.sqlCMD.view.View;
 import java.util.HashMap;
+import java.util.Map;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -14,7 +16,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Created by AVM on 30.11.2016.
  */
-public class listDBTest {
+public class listTabTest {
 
     View view;
     DataBase db;
@@ -29,46 +31,56 @@ public class listDBTest {
     }
 
     @Test
-    public void testGetListDBPostgreSQL(){
+    public void testGetListTabPostgreSQL(){
 
         db = new Connect(view).getDb(postgreSQL);
 
-        HashMap<String, String> listDB = db.getListDB();
-        HashMap<String, String> expected  = new HashMap<>();
+        Map<String, String> listTab = db.getListTable();
+        Map<String, String> expected  = new HashMap<>();
 
-        expected.put("test","postgres");
-        expected.put("postgres","postgres");
+        expected.put("user","0");
 
-        assertThat(listDB, is(expected));
+        assertThat(listTab, is(expected));
         db.closeConnection();
 
     }
     @Test
-    public void testGetListDBMSServer(){
+    public void testGetListTabMSServer(){
 
         db = new Connect(view).getDb(msServer);
-        HashMap<String, String> listDB = db.getListDB();
+        Map<String, String> listTab = db.getListTable();
         HashMap<String, String> expected  = new HashMap<>();
 
-        expected.put("DRUG","sa");
-        expected.put("TEST","sa");
-        expected.put("ACINUS","sa");
-        expected.put("avm","sa");
+        expected.put("dbo.user","1");
 
-        assertThat(listDB, is(expected));
+        assertThat(listTab, is(expected));
         db.closeConnection();
 
 
     }
     @Test
-    public void testGetListDBFireBird(){
+    public void testGetListTabFireBird(){
 
         db = new Connect(view).getDb(fireBird);
-        HashMap<String, String> listDB = db.getListDB();
+        Map<String, String> listTab = db.getListTable();
+        Map<String, String> expected  = new HashMap<>();
 
-        assertNull(listDB);
+        expected.put("LINE_VISIT","3585");
+        expected.put("PATIENT_VISIT","2718");
+        expected.put("R_STATUS","2");
+        expected.put("LINE_VISIT_TEMPLATE","85");
+        expected.put("PATIENT_LV","23915");
+        expected.put("SCR_FAILURE","9");
+        expected.put("CARD","158");
+        expected.put("RESEARCH","19");
+        expected.put("VISITS","447");
+        expected.put("VISITE_TYPE","3");
+        expected.put("A_ACCESS","3");
+        expected.put("A_SYS","3");
 
+        assertThat(listTab, is(expected));
         db.closeConnection();
+
 
 
     }

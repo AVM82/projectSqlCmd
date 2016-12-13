@@ -10,7 +10,12 @@ public abstract class DataBase implements DBManager{
 
     protected String userName;
     protected String password;
-    protected String dbaseName;
+
+    public String getDbaseName() {
+        return dbaseName;
+    }
+
+    protected String dbaseName = null;
     protected String port;
     protected String server;
 
@@ -78,6 +83,7 @@ public abstract class DataBase implements DBManager{
 
             connection.close();
             dataBase.setConnect(false);
+            dataBase.dbaseName = null;
             DBaseType = "> ";
         } catch (SQLException e) {
             String message = e.getMessage();

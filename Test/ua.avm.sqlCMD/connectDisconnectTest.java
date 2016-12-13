@@ -20,8 +20,8 @@ public class connectDisconnectTest {
     View view;
     DataBase db;
     private String[] postgreSQL = "connect -pg -localhost -test -postgres -function root".split("\u0020"+"-");
-    private String[] msServer = "connect -ms -DBServer -Test -sa -SQL_master".split("\u0020"+"-");
-    private String[] fireBird = "connect -fb -DBServer -D:/Andromeda/TestDB/DBase.FDB -SYSDBA -masterkey".split("\u0020"+"-");
+    private String[] msServer = "connect -ms -DBServer -avm -sa -SQL_master".split("\u0020"+"-");
+    private String[] fireBird = "connect -fb -DBServer -D:/Andromeda/TestDB/sqlCMD.FDB -SYSDBA -masterkey".split("\u0020"+"-");
 
     public connectDisconnectTest() throws Exception {
     }
