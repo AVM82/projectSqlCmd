@@ -120,4 +120,20 @@ public class PostgreSQL extends DataBase{
 
 
     }
+
+    @Override
+    public boolean isTableExist(String tableName) {
+
+        try {
+            ResultSet resultSet = connection.createStatement().executeQuery("SELECT EXISTS ( SELECT 1"+
+                    " FROM information_schema.tables WHERE  table_name = '"+tableName+"')");
+            resultSet.next();
+            return resultSet.getBoolean(1);
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+
+    }
 }

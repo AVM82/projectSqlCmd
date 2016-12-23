@@ -126,5 +126,27 @@ public class MSServer extends DataBase{
         return result;
     }
 
+    @Override
+    public boolean isTableExist(String tableName) {
+
+        try {
+            String query = "use "+dbaseName+" IF EXISTS (SELECT 1 " +
+                    "FROM INFORMATION_SCHEMA.TABLES " +
+                    "WHERE TABLE_TYPE='BASE TABLE' " +
+                    "AND TABLE_NAME='"+tableName+"') " +
+                    "SELECT 1 AS res ELSE SELECT 0 AS res";
+            ResultSet resultSet = connection.createStatement().executeQuery(query);
+            resultSet.next();
+            int i = resultSet.getInt(1);
+            boolean t = resultSet.getBoolean(1);
+            return resultSet.getBoolean(1);
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+
+    }
+
 }
 

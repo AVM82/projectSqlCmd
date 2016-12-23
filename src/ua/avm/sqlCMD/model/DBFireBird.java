@@ -145,12 +145,18 @@ public class DBFireBird extends DataBase{
         }
 
         return result;
+    }
 
+    @Override
+    public boolean isTableExist(String tableName) {
+        try {
+            ResultSet resultSet = connection.createStatement().executeQuery("select COUNT(*) from rdb$relations where rdb$relation_name = '"+tableName+"'");
+            resultSet.next();
+            return resultSet.getBoolean(1);
 
-
-
-
-
-
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
     }
 }

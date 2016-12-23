@@ -13,9 +13,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by AVM on 01.12.2016.
+ * Created by AVM on 14.12.2016.
  */
-public class createDropDB {
+public class createDelTabTest {
 
     View view;
     DataBase db;
@@ -30,37 +30,28 @@ public class createDropDB {
     }
 
     @Test
-    public void testCreateDropDBFireBird(){
+    public void testCreateDropTabFireBird(){
 
         db = new Connect(view).getDb(fireBird);
-        new CreateDB(db, view).doIt(new String[] {"","D:/Andromeda/TestDB/newDB.FDB"});
-        assertTrue(db.isDataBaseExist("D:/Andromeda/TestDB/newDB.FDB"));
-        new DropDB(db,view).doIt(new String[] {"","D:/Andromeda/TestDB/newDB.FDB"});
-        assertFalse(db.isDataBaseExist("D:/Andromeda/TestDB/newDB.FDB"));
 
+        assertTrue(db.isTableExist("A_SYS"));
 
     }
 
     @Test
-    public void testCreateDropDBPestgre(){
+    public void testCreateDelTabPestgre(){
 
         db = new Connect(view).getDb(postgreSQL);
-        new CreateDB(db, view).doIt(new String[] {"","newdb"});
-        assertTrue(db.isDataBaseExist("newdb"));
-        new DropDB(db,view).doIt(new String[] {"","newdb"});
-        assertFalse(db.isDataBaseExist("newdb"));
+
+        assertTrue(db.isTableExist("user"));
+
     }
     @Test
-    public void testCreateDBMSServer(){
+    public void testCreateTabMSServer(){
 
         db = new Connect(view).getDb(msServer);
-        new CreateDB(db, view).doIt(new String[] {"","newdb"});
-        assertTrue(db.isDataBaseExist("newdb"));
-        new DropDB(db,view).doIt(new String[] {"","newdb"});
-        assertFalse(db.isDataBaseExist("newdb"));
 
-
+        assertTrue(db.isTableExist("LP"));
 
     }
-
 }
