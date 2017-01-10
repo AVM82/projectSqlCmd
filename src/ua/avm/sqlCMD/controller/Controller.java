@@ -2,6 +2,7 @@ package ua.avm.sqlCMD.controller;
 
 import ua.avm.sqlCMD.controller.command.*;
 import ua.avm.sqlCMD.model.DataBase;
+import ua.avm.sqlCMD.view.Console;
 import ua.avm.sqlCMD.view.View;
 
 
@@ -14,9 +15,12 @@ public class Controller {
     DataBase db;
     View view;
 
+
+
     public Controller(View view) {
         this.view = view;
     }
+
 
     public void run(View view) {
 
@@ -37,7 +41,7 @@ public class Controller {
                 continue;
             }else{
                 view.writeln("Enter the command or \"-?\" for help.");
-                inputCommand = view.read().split("\u0020"+"-");
+                inputCommand = view.read().split(view.getCommandDelimiter());
             }
 
             final Command[] command = new Command[]{    new Exit(view),
@@ -45,7 +49,8 @@ public class Controller {
                                                         new ListDB(db, view),
                                                         new CreateDB(db, view),
                                                         new DropDB(db, view),
-                                                        new ListTab(db, view)
+                                                        new ListTab(db, view),
+                                                        new CreateTab(db, view)
                                                     };
 
             for (Command cmd: command) {

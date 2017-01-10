@@ -1,5 +1,7 @@
 package ua.avm.sqlCMD.controller;
 
+import java.lang.Object;
+
 import ua.avm.sqlCMD.view.View;
 
 import java.util.Map;
@@ -53,5 +55,10 @@ public class Utility {
 
     }
 
-
+    public static boolean verifyName(String name){
+        return Character.isDigit(name.charAt(0));
+    }
+    public static int countOfParam(String sample, String delimiter) {
+        return sample.split(delimiter).length;
+    }
 }

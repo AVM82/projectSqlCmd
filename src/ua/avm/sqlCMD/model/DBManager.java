@@ -1,7 +1,6 @@
 package ua.avm.sqlCMD.model;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,10 +15,11 @@ public interface DBManager {
 
     boolean isDataBaseExist(String dbName);
 
-
     boolean dropDB(String dbName);
 
     Map<String,String> getListTable();
 
     boolean isTableExist (String tableName);
+
+    boolean createTab(String tableName, ArrayList<String[]> columns);
 }

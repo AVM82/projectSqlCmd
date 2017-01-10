@@ -1,6 +1,7 @@
 package ua.avm.sqlCMD.model;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -145,6 +146,43 @@ public class MSServer extends DataBase{
             System.err.println(e.getMessage());
             return false;
         }
+
+    }
+
+    @Override
+    public boolean createTab(String tableName, ArrayList<String[]> columns) {
+        try {
+            String sql = "CREATE TABLE "+tableName+" ( ";
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < columns.size(); i++){
+                String[] oneColumn = columns.get(i);
+                sql = sql.concat(stringBuilder.append(oneColumn[0]).append(" ").append(oneColumn[1]).append(" ").toString());
+                stringBuilder.delete(0,stringBuilder.length());
+                if (oneColumn[2].equals("y")){
+                    sql = sql.concat(" PRIMARY KEY ");
+                }
+                if (oneColumn[3].equals("n")){
+                    sql = sql.concat(" NOT NULL ");
+                }else{
+                    sql = sql.concat(" NULL ");
+                }
+
+                if (i < columns.size() - 1){
+                    sql = sql.concat(",");
+                }else{
+                    sql = sql.concat(")");
+                }
+
+            }
+            connection.createStatement().execute(sql);
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+
+
 
     }
 

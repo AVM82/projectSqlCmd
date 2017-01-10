@@ -34,6 +34,7 @@ public class createDelTabTest {
 
         db = new Connect(view).getDb(fireBird);
 
+
         assertTrue(db.isTableExist("A_SYS"));
 
     }

@@ -23,6 +23,7 @@ public class DropDB implements Command{
 
     @Override
     public void doIt(String[] command) {
+        //TODO запросить подтверждение удаления
 
         if(db.dropDB(command[1])){
 

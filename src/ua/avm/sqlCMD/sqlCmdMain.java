@@ -14,7 +14,11 @@ public class sqlCmdMain {
 
 
     public static void main(String[] args) {
-        View view = new Console();
+
+        Console console = new Console();
+
+        Console view = new Console();
+
 
         Controller ctrl = new Controller(view);
         ctrl.run(view);

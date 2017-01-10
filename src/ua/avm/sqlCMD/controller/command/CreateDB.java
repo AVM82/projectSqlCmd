@@ -19,12 +19,12 @@ public class CreateDB implements Command {
 
     @Override
     public boolean canDoIt(String command) {
-        return "createdb".equals(command);
+        return "createDB".equals(command);
     }
 
     @Override
     public void doIt(String[] command) {
-        //TODO запросить подтверждение удаления
+
         if(db.createDB(command[1])){
 
             view.writeln("DataBase with name \""+command[1]+"\" is created successfully");

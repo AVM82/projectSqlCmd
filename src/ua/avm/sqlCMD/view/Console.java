@@ -9,6 +9,7 @@ public class Console implements View {
 
     private String prefix = "> ";
 
+
     @Override
     public void writeln(String message) {
 
@@ -44,4 +45,16 @@ public class Console implements View {
     public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
+
+    @Override
+    public String getCommandDelimiter() {
+        return COMMAND_DELIMITER;
+    }
+
+    @Override
+    public String getSecondaryDelimiter() {
+        return SECONDARY_DELIMITER;
+    }
+
+
 }
