@@ -17,6 +17,8 @@ public interface DBManager {
 
     boolean dropDB(String dbName);
 
+    boolean dropTable(String tableName);
+
     Map<String,String> getListTable();
 
     boolean isTableExist (String tableName);

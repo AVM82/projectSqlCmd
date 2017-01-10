@@ -50,7 +50,8 @@ public class Controller {
                                                         new CreateDB(db, view),
                                                         new DropDB(db, view),
                                                         new ListTab(db, view),
-                                                        new CreateTab(db, view)
+                                                        new CreateTab(db, view),
+                                                        new DeleteTab(db, view)
                                                     };
 
             for (Command cmd: command) {

@@ -100,6 +100,18 @@ public class PostgreSQL extends DataBase{
     }
 
     @Override
+    public boolean dropTable(String tableName) {
+        try {
+            connection.createStatement().execute("DROP TABLE "+tableName);
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
     public Map<String, String> getListTable() {
         HashMap<String, String> result = new HashMap<>();
         Statement statement;

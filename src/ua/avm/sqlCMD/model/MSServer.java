@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by AVM on 11.10.2016.
  */
-//connect -ms -DBServer -Test -sa -SQL_master
+//connect -ms -DBServer -avm -sa -SQL_master
 public class MSServer extends DataBase{
 
     public MSServer(String[] paramLine) throws Exception {
@@ -90,6 +90,18 @@ public class MSServer extends DataBase{
     public boolean dropDB(String dbName) {
         try {
             connection.createStatement().execute("DROP DATABASE "+dbName);
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean dropTable(String tableName) {
+        try {
+            connection.createStatement().execute("DROP TABLE "+tableName);
             return true;
 
         } catch (SQLException e) {

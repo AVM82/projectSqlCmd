@@ -31,12 +31,8 @@ public class CreateTab implements Command{
 
     @Override
     public void doIt(String[] command) {
-        int countOfParam = Utility.countOfParam(COMMAND_SAMPLE, view.getCommandDelimiter()) - 1;
-        int commandLength = command.length - 1;
-        if (commandLength != countOfParam)
-        {
-            view.warningWriteln(String.format("Invalid number of parameters. Expected %s, but got %s",
-                    countOfParam, commandLength));
+
+        if (!Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
             return;
         }
 
@@ -63,13 +59,12 @@ public class CreateTab implements Command{
         view.writeln("");
         String line = view.read();
         while (!line.equals("end")) {
-            boolean canRec = true;
-            countOfParam = Utility.countOfParam(COLUMN_SAMPLE, view.getSecondaryDelimiter());
             String[] column = line.split("\\|");
-            if (column.length != countOfParam){
-                view.warningWriteln(String.format("Invalid number of parameters. Expected %s, but got %s",
-                        countOfParam, column.length));
+            boolean canRec = true;
+            if (Utility.verifyParams(COLUMN_SAMPLE,view.getSecondaryDelimiter(),column.length,view)){
+
                 canRec = false;
+
             }else {
                 for (String[] s : tableColumns) {
                     if (s[0].equals(column[0])) {

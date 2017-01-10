@@ -61,4 +61,28 @@ public class Utility {
     public static int countOfParam(String sample, String delimiter) {
         return sample.split(delimiter).length;
     }
+
+    public static boolean verifyParams(String sample,String delimiter, int countInputParams, View view){
+        int countOfParam = Utility.countOfParam(sample, delimiter) - 1;
+        if (countOfParam != countInputParams)
+        {
+            view.warningWriteln(String.format("Invalid number of parameters. Expected %s, but got %s",
+                    countOfParam, countInputParams));
+            return false;
+        }else{
+            return true;
+        }
+
+
+    }
+
+    public static boolean requestForConfirmation(View view, String objForDel){
+        view.warningWriteln("Are you sure to delete table "+objForDel+" (y/n)");
+        if (view.read().equals("y")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
