@@ -1,6 +1,7 @@
 package ua.avm.sqlCMD.controller.command;
 
 
+import ua.avm.sqlCMD.controller.Utility;
 import ua.avm.sqlCMD.model.DataBase;
 import ua.avm.sqlCMD.view.View;
 
@@ -11,6 +12,7 @@ import ua.avm.sqlCMD.view.View;
 public class CreateDB implements Command {
     private final View view;
     private final DataBase db;
+    private String COMMAND_SAMPLE = "createDB -dbName";
 
     public CreateDB(DataBase db, View view) {
         this.view = view;
@@ -24,6 +26,10 @@ public class CreateDB implements Command {
 
     @Override
     public void doIt(String[] command) {
+
+        if (!Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
+            return;
+        }
 
         if(db.createDB(command[1])){
 

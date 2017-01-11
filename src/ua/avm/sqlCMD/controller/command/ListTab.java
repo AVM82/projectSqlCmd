@@ -13,6 +13,7 @@ public class ListTab implements Command {
 
     private final View view;
     private final DataBase db;
+    private String COMMAND_SAMPLE = "ltab";
 
     public ListTab(DataBase db, View view) {
         this.view = view;
@@ -36,8 +37,12 @@ public class ListTab implements Command {
 
     @Override
     public void doIt(String[] command) {
+        if (Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
 
-        Utility.printTab(db.getListTable(),view, new String[]{"TABLE NAME","ROW COUNT"},30);
+            Utility.printTab(db.getListTable(),view, new String[]{"TABLE NAME","ROW COUNT"},30);
+
+        }
+
 
     }
 }

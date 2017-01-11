@@ -1,5 +1,6 @@
 package ua.avm.sqlCMD.controller.command;
 
+import ua.avm.sqlCMD.controller.Utility;
 import ua.avm.sqlCMD.model.DataBase;
 import ua.avm.sqlCMD.view.View;
 
@@ -11,6 +12,7 @@ public class Disconnect implements Command {
 
     private final View view;
     private DataBase db;
+    private String COMMAND_SAMPLE = "disconnect";
 
 
 
@@ -28,6 +30,10 @@ public class Disconnect implements Command {
 
     @Override
     public void doIt(String[] command) {
+
+        if (!Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
+            return;
+        }
 
         if (db == null){
             view.writeln("There are no active connections!");
