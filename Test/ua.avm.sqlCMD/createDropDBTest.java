@@ -17,8 +17,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class createDropDBTest {
 
-    View view;
-    DataBase db;
+    private View view;
+    private DataBase db;
     private String[] postgreSQL = "connect -pg -localhost -test -postgres -function root".split("\u0020"+"-");
     private String[] msServer = "connect -ms -DBServer -avm -sa -SQL_master".split("\u0020"+"-");
     private String[] fireBird = "connect -fb -DBServer -D:/Andromeda/TestDB/sqlCMD.FDB -SYSDBA -masterkey".split("\u0020"+"-");
@@ -35,7 +35,8 @@ public class createDropDBTest {
         db = new Connect(view).getDb(fireBird);
         new CreateDB(db, view).doIt(new String[] {"","D:/Andromeda/TestDB/newDB.FDB"});
         assertTrue(db.isDataBaseExist("D:/Andromeda/TestDB/newDB.FDB"));
-        new DropDB(db,view).doIt(new String[] {"","D:/Andromeda/TestDB/newDB.FDB"});
+//        new DropDB(db,view).doIt(new String[] {"","D:/Andromeda/TestDB/newDB.FDB"});
+        db.dropDB("D:/Andromeda/TestDB/newDB.FDB");
         assertFalse(db.isDataBaseExist("D:/Andromeda/TestDB/newDB.FDB"));
 
 
@@ -47,7 +48,8 @@ public class createDropDBTest {
         db = new Connect(view).getDb(postgreSQL);
         new CreateDB(db, view).doIt(new String[] {"","newdb"});
         assertTrue(db.isDataBaseExist("newdb"));
-        new DropDB(db,view).doIt(new String[] {"","newdb"});
+//        new DropDB(db,view).doIt(new String[] {"","newdb"});
+        db.dropDB("newdb");
         assertFalse(db.isDataBaseExist("newdb"));
     }
     @Test
@@ -56,7 +58,8 @@ public class createDropDBTest {
         db = new Connect(view).getDb(msServer);
         new CreateDB(db, view).doIt(new String[] {"","newdb"});
         assertTrue(db.isDataBaseExist("newdb"));
-        new DropDB(db,view).doIt(new String[] {"","newdb"});
+//        new DropDB(db,view).doIt(new String[] {"","newdb"});
+        db.dropDB("newdb");
         assertFalse(db.isDataBaseExist("newdb"));
 
 

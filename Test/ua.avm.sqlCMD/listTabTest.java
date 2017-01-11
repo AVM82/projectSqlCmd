@@ -18,8 +18,8 @@ import static org.junit.Assert.assertThat;
  */
 public class listTabTest {
 
-    View view;
-    DataBase db;
+    private View view;
+    private DataBase db;
     private String[] postgreSQL = "connect -pg -localhost -test -postgres -function root".split("\u0020"+"-");
     private String[] msServer = "connect -ms -DBServer -avm -sa -SQL_master".split("\u0020"+"-");
     private String[] fireBird = "connect -fb -DBServer -D:/Andromeda/TestDB/sqlCMD.FDB -SYSDBA -masterkey".split("\u0020"+"-");
@@ -34,7 +34,7 @@ public class listTabTest {
     public void testGetListTabPostgreSQL(){
 
         db = new Connect(view).getDb(postgreSQL);
-
+        
         Map<String, String> listTab = db.getListTable();
         Map<String, String> expected  = new HashMap<>();
 
@@ -51,7 +51,7 @@ public class listTabTest {
         Map<String, String> listTab = db.getListTable();
         HashMap<String, String> expected  = new HashMap<>();
 
-        expected.put("dbo.user","1");
+        expected.put("dbo.LP","1");
 
         assertThat(listTab, is(expected));
         db.closeConnection();

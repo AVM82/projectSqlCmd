@@ -17,8 +17,8 @@ import static org.junit.Assert.assertTrue;
  */
 
 public class connectDisconnectTest {
-    View view;
-    DataBase db;
+    private View view;
+    private DataBase db;
     private String[] postgreSQL = "connect -pg -localhost -test -postgres -function root".split("\u0020"+"-");
     private String[] msServer = "connect -ms -DBServer -avm -sa -SQL_master".split("\u0020"+"-");
     private String[] fireBird = "connect -fb -DBServer -D:/Andromeda/TestDB/sqlCMD.FDB -SYSDBA -masterkey".split("\u0020"+"-");
@@ -38,7 +38,7 @@ public class connectDisconnectTest {
         db = new Connect(view).getDb(msServer);
 
             assertTrue(db.isConnect());
-            new Disconnect(db,view).doIt(null);
+            new Disconnect(db,view).doIt(new String[] {"disconnect"});
             assertFalse(db.isConnect());
 
     }
@@ -49,7 +49,7 @@ public class connectDisconnectTest {
         db = new Connect(view).getDb(fireBird);
 
             assertTrue(db.isConnect());
-            new Disconnect(db,view).doIt(null);
+            new Disconnect(db,view).doIt(new String[] {"disconnect"});
             assertFalse(db.isConnect());
 
 
@@ -61,7 +61,7 @@ public class connectDisconnectTest {
         db = new Connect(view).getDb(postgreSQL);
 
             assertTrue(db.isConnect());
-            new Disconnect(db,view).doIt(null);
+            new Disconnect(db,view).doIt(new String[] {"disconnect"});
             assertFalse(db.isConnect());
 
 
