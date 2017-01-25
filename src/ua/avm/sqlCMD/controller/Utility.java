@@ -1,9 +1,10 @@
 package ua.avm.sqlCMD.controller;
 
-import java.lang.Object;
-
 import ua.avm.sqlCMD.view.View;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,42 +17,32 @@ public class Utility {
 
         if (data == null) {
             view.warningWriteln("Command not supported for this database.");
+        }else{
+
+            Set<Map.Entry<String, String>> set = data.entrySet();
+
+            view.printTitle(title, sizeCol);
+
+            for (Map.Entry<String, String> value : set) {
+
+                String string1 = value.getKey();
+                String string2 = value.getValue();
+                view.write("|");
+                view.fWriteln(string1,sizeCol);
+                view.write("|");
+                view.fWriteln(string2,sizeCol);
+                view.write("|");
+                System.out.println("");
+            }
+
+
+            view.printFooter(sizeCol);
         }
 
-        Set<Map.Entry<String, String>> set = data.entrySet();
-
-        for (int i = 0; i < sizeCol*2+3; i++) {
-            view.write("_");
-        }
-        view.writeln("");
-        view.write("|");
-        view.fWriteln(title[0],sizeCol);
-        view.write("|");
-        view.fWriteln(title[1],sizeCol);
-        view.writeln("|");
-        for (int i = 0; i < sizeCol*2+3; i++) {
-            view.write("=");
-        }
-        view.writeln("");
-        for (Map.Entry<String, String> value : set) {
-
-            String string1 = value.getKey();
-            String string2 = value.getValue();
-            view.write("|");
-            view.fWriteln(string1,sizeCol);
-            view.write("|");
-            view.fWriteln(string2,sizeCol);
-            view.write("|");
-            System.out.println("");
-        }
-        for (int i = 0; i < sizeCol*2+3; i++) {
-            view.write("-");
-        }
-        System.out.println("");
 
     }
 
-    public static void printTab(String[][] data, View view){
+     public static void printTab(ResultSet fieldData, View view){
 
     }
 
@@ -72,17 +63,25 @@ public class Utility {
         }else{
             return true;
         }
+    }
+    public static boolean verifyParams(int[] countParam, int countInputParams, View view){
 
+        Arrays.sort(countParam);
+        if (Arrays.binarySearch(countParam,countInputParams) < 0) {
+
+            view.warningWriteln(String.format("Invalid number of parameters. Expected from %s to %s, but got %s",
+                    countParam[0], countParam[countParam.length - 1], countInputParams));
+
+            return false;
+        }else {
+            return true;
+        }
 
     }
 
     public static boolean requestForConfirmation(View view, String objForDel){
         view.warningWriteln("Are you sure to delete table "+objForDel+" (y/n)");
-        if (view.read().equals("y")){
-            return true;
-        }else{
-            return false;
-        }
+        return view.read().equals("y");
     }
 
 }

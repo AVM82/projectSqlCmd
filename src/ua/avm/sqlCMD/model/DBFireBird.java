@@ -32,7 +32,6 @@ public class DBFireBird extends DataBase{
 
         }
         else{
-            //TODO query to user for create database
             throw new Exception("Not supported.");
         }
 
@@ -205,6 +204,11 @@ public class DBFireBird extends DataBase{
             return false;
         }
 
+    }
+
+    @Override
+    public ArrayList<String[]> viewTable(String[] CommandLine) {
+        return null;
     }
 
 }

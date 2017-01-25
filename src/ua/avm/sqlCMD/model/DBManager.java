@@ -24,4 +24,6 @@ public interface DBManager {
     boolean isTableExist (String tableName);
 
     boolean createTab(String tableName, ArrayList<String[]> columns);
+
+    ArrayList<String[]> viewTable(String[] commandLine);
 }

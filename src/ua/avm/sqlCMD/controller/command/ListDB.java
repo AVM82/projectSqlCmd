@@ -4,15 +4,14 @@ import ua.avm.sqlCMD.controller.Utility;
 import ua.avm.sqlCMD.model.DataBase;
 import ua.avm.sqlCMD.view.View;
 
-import java.util.*;
 
 /**
  * Created by AVM on 18.11.2016.
  */
 public class ListDB implements Command {
-    private String COMMAND_SAMPLE = "ldb";
-    private final View view;
-    private final DataBase db;
+    private final String COMMAND_SAMPLE = "ldb";
+    private View view;
+    private DataBase db;
 
     public ListDB(DataBase db, View view) {
 
@@ -23,7 +22,7 @@ public class ListDB implements Command {
 
     @Override
     public boolean canDoIt(String command) {
-        return "ldb".equals(command);
+        return COMMAND_SAMPLE.equals(command);
     }
 
     @Override
@@ -33,6 +32,5 @@ public class ListDB implements Command {
 
             Utility.printTab(db.getListDB(),view, new String[]{"DATABASE NAME","OWNER"},20);
         }
-
     }
 }

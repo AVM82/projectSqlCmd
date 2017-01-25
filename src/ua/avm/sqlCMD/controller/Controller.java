@@ -2,7 +2,6 @@ package ua.avm.sqlCMD.controller;
 
 import ua.avm.sqlCMD.controller.command.*;
 import ua.avm.sqlCMD.model.DataBase;
-import ua.avm.sqlCMD.view.Console;
 import ua.avm.sqlCMD.view.View;
 
 
@@ -11,11 +10,8 @@ import ua.avm.sqlCMD.view.View;
  */
 public class Controller {
 
-//    private boolean connected = false;
     DataBase db;
     View view;
-
-
 
     public Controller(View view) {
         this.view = view;
@@ -26,8 +22,6 @@ public class Controller {
 
         while(true){
             String[] inputCommand;
-
-
             if ((db == null) || (!db.isConnect()) ) {
                 view.writeln("");
                 view.writeln("***********************************************************************************************");
@@ -51,7 +45,8 @@ public class Controller {
                                                         new DropDB(db, view),
                                                         new ListTab(db, view),
                                                         new CreateTab(db, view),
-                                                        new DeleteTab(db, view)
+                                                        new DeleteTab(db, view),
+                                                        new ViewTable(db, view)
                                                     };
 
             for (Command cmd: command) {

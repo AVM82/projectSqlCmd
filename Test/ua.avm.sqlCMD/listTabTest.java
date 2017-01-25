@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -20,9 +19,9 @@ public class listTabTest {
 
     private View view;
     private DataBase db;
-    private String[] postgreSQL = "connect -pg -localhost -test -postgres -function root".split("\u0020"+"-");
-    private String[] msServer = "connect -ms -DBServer -avm -sa -SQL_master".split("\u0020"+"-");
-    private String[] fireBird = "connect -fb -DBServer -D:/Andromeda/TestDB/sqlCMD.FDB -SYSDBA -masterkey".split("\u0020"+"-");
+    private final String[] postgreSQL = "connect -pg -localhost -test -postgres -function root".split("\u0020"+"-");
+    private final String[] msServer = "connect -ms -DBServer -avm -sa -SQL_master".split("\u0020"+"-");
+    private final String[] fireBird = "connect -fb -DBServer -D:/Andromeda/TestDB/sqlCMD.FDB -SYSDBA -masterkey".split("\u0020"+"-");
     @Before
     public void setup() {
 

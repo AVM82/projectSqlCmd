@@ -9,9 +9,9 @@ import ua.avm.sqlCMD.view.View;
  */
 public class DropDB implements Command{
 
-    private String COMMAND_SAMPLE = "dropdb -dbName";
-    private final View view;
-    private final DataBase db;
+    private final String COMMAND_SAMPLE = "dropdb -dbName";
+    private View view;
+    private DataBase db;
 
     public DropDB(DataBase db, View view) {
         this.view = view;
@@ -20,21 +20,20 @@ public class DropDB implements Command{
 
     @Override
     public boolean canDoIt(String command) {
-        return "dropdb".equals(command);
+
+        return COMMAND_SAMPLE.substring(0,COMMAND_SAMPLE.indexOf(view.getCommandDelimiter())).equals(command);
     }
 
     @Override
     public void doIt(String[] command) {
 
-        if (!Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
-            return;
-        }
+        if (Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
+            if (Utility.requestForConfirmation(view,command[1])){
 
-        if (Utility.requestForConfirmation(view,command[1])){
+                if(db.dropDB(command[1])){
 
-            if(db.dropDB(command[1])){
-
-                view.writeln("DataBase with name \""+command[1]+"\" is deleted successfully");
+                    view.writeln("DataBase with name \""+command[1]+"\" is deleted successfully");
+                }
             }
         }
     }

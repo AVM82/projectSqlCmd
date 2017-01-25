@@ -8,8 +8,8 @@ import ua.avm.sqlCMD.view.View;
  */
 public class Exit implements Command {
 
-    private final View view;
-    private String COMMAND_SAMPLE = "exit";
+    private View view;
+    private final String COMMAND_SAMPLE = "exit";
 
     public Exit(View view) {
 
@@ -18,17 +18,15 @@ public class Exit implements Command {
 
     @Override
     public boolean canDoIt(String command) {
-        return "exit".equals(command);
+        return COMMAND_SAMPLE.equals(command);
     }
 
     @Override
     public void doIt(String[] command) {
 
-        if (!Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
-            return;
+        if (Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
+            view.write("The work is completed");
+            System.exit(0);
         }
-        view.write("The work is completed");
-        System.exit(0);
-
     }
 }

@@ -9,9 +9,9 @@ import ua.avm.sqlCMD.view.View;
  */
 public class DeleteTab implements Command{
 
-    private String COMMAND_SAMPLE = "delTab -tableName";
-    private final View view;
-    private final DataBase db;
+    private final String COMMAND_SAMPLE = "delTab -tableName";
+    private View view;
+    private DataBase db;
 
     public DeleteTab(DataBase db, View view) {
 
@@ -22,23 +22,20 @@ public class DeleteTab implements Command{
 
     @Override
     public boolean canDoIt(String command) {
-        return "deltab".equals(command);
+        return COMMAND_SAMPLE.substring(0,COMMAND_SAMPLE.indexOf(view.getCommandDelimiter())).equals(command);
     }
 
     @Override
     public void doIt(String[] command) {
 
-        if (!Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
-            return;
-        }
+        if (Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
+            if (Utility.requestForConfirmation(view,command[1])){
 
-        if (Utility.requestForConfirmation(view,command[1])){
+                if(db.dropTable(command[1])){
 
-            if(db.dropTable(command[1])){
-
-                view.writeln("Table with name \""+command[1]+"\" is deleted successfully");
+                    view.writeln("Table with name \""+command[1]+"\" is deleted successfully");
+                }
             }
         }
-
     }
 }

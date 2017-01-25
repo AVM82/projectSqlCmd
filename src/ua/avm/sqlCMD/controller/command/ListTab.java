@@ -11,9 +11,9 @@ import ua.avm.sqlCMD.view.View;
  */
 public class ListTab implements Command {
 
-    private final View view;
-    private final DataBase db;
-    private String COMMAND_SAMPLE = "ltab";
+    private View view;
+    private DataBase db;
+    private final String COMMAND_SAMPLE = "ltab";
 
     public ListTab(DataBase db, View view) {
         this.view = view;
@@ -22,17 +22,7 @@ public class ListTab implements Command {
 
     @Override
     public boolean canDoIt(String command) {
-        if ("ltab".equals(command)){
-            if ((db.isConnect())&&(db.getDbaseName()!= null)){
-                return true;
-            }else {
-                view.warningWriteln("To execute this command you must be connected to the database.");
-                return false;
-            }
-
-        }else {
-            return false;
-        }
+        return COMMAND_SAMPLE.equals(command);
     }
 
     @Override

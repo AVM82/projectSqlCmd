@@ -10,9 +10,9 @@ import ua.avm.sqlCMD.view.View;
  */
 public class Disconnect implements Command {
 
-    private final View view;
+    private View view;
     private DataBase db;
-    private String COMMAND_SAMPLE = "disconnect";
+    private final String COMMAND_SAMPLE = "disconnect";
 
 
 
@@ -25,25 +25,21 @@ public class Disconnect implements Command {
 
     @Override
     public boolean canDoIt(String command) {
-        return "disconnect".equals(command);
+        return COMMAND_SAMPLE.equals(command);
     }
 
     @Override
     public void doIt(String[] command) {
 
-        if (!Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
-            return;
+        if (Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
+            if (db == null){
+                view.writeln("There are no active connections!");
+            }
+            else {
+                db.closeConnection();
+                view.setPrefix(">");
+                view.writeln("Connection with database is closed.");
+            }
         }
-
-        if (db == null){
-            view.writeln("There are no active connections!");
-        }
-        else {
-
-            db.closeConnection();
-            view.setPrefix(">");
-            view.writeln("Connection with database is closed.");
-        }
-
     }
 }

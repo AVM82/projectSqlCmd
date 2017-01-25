@@ -74,11 +74,7 @@ public class MSServer extends DataBase{
         try {
             ResultSet resultSet = connection.createStatement().executeQuery("SELECT 1 FROM master.dbo.sysdatabases " +
                     "as t WHERE t.name = '"+dbName+"'");
-            if((resultSet.next())&&(resultSet.getBoolean(1))){
-                return true;
-            }else{
-                return false;
-            }
+            return (resultSet.next())&&(resultSet.getBoolean(1));
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -150,8 +146,6 @@ public class MSServer extends DataBase{
                     "SELECT 1 AS res ELSE SELECT 0 AS res";
             ResultSet resultSet = connection.createStatement().executeQuery(query);
             resultSet.next();
-            int i = resultSet.getInt(1);
-            boolean t = resultSet.getBoolean(1);
             return resultSet.getBoolean(1);
 
         } catch (SQLException e) {
@@ -196,6 +190,11 @@ public class MSServer extends DataBase{
 
 
 
+    }
+
+    @Override
+    public ArrayList<String[]> viewTable(String[] commandLine) {
+        return null;
     }
 
 }

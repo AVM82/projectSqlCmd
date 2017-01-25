@@ -1,7 +1,10 @@
 package ua.avm.sqlCMD.model;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by AVM on 12.10.2016.
@@ -46,20 +49,21 @@ public abstract class DataBase implements DBManager{
             if (paramLine[1].equals("fb")){
                 dataBase = new DBFireBird(paramLine);
 
-            }
-            //connect to MS SQL Server
-            if (paramLine[1].equals("ms")){
-                 dataBase = new MSServer(paramLine);
-            }
-            //connect to PostgreSQL
-            if (paramLine[1].equals("pg")){
-                 dataBase = new PostgreSQL(paramLine);
-            }
+            }else {
 
-            if (dataBase == null){
-                throw new Exception("\u001B[31m"+"DBMS is selected incorrectly");
-            }
+                //connect to MS SQL Server
+                if (paramLine[1].equals("ms")){
+                    dataBase = new MSServer(paramLine);
+                }else {
 
+                    //connect to PostgreSQL
+                    if (paramLine[1].equals("pg")){
+                        dataBase = new PostgreSQL(paramLine);
+                    }else{
+                        throw new Exception("\u001B[31m"+"DBMS is selected incorrectly");
+                    }
+                }
+            }
             dataBase.setConnect(true);
             System.out.println("The connection to the server has been established!");
         }
@@ -93,9 +97,31 @@ public abstract class DataBase implements DBManager{
 
     }
 
+    public String[] getColumnList(String tableName) {
 
-    public Connection getConnection() {
-        return connection;
+        ArrayList<String> columnName = new ArrayList<>();
+        DatabaseMetaData databaseMetaData;
+        ResultSet columns = null;
+        try {
+            databaseMetaData = connection.getMetaData();
+            columns = databaseMetaData.getColumns(null,null,tableName,null);
+            while(columns.next()){
+                columnName.add(columns.getString("COLUMN_NAME"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+
+            try {
+                columns.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return columnName.toArray(new String[columnName.size()]);
+
     }
 }
 

@@ -19,24 +19,21 @@ public class createDelTabTest {
 
     private View view;
     private DataBase db;
-    private String[] postgreSQL = "connect -pg -localhost -test -postgres -function root".split("\u0020"+"-");
-    private String[] msServer = "connect -ms -DBServer -avm -sa -SQL_master".split("\u0020"+"-");
-    private String[] fireBird = "connect -fb -DBServer -D:/Andromeda/TestDB/sqlCMD.FDB -SYSDBA -masterkey".split("\u0020"+"-");
-    private String[][] columns = {
+    private final String[] postgreSQL = "connect -pg -localhost -test -postgres -function root".split("\u0020"+"-");
+    private final String[] msServer = "connect -ms -DBServer -avm -sa -SQL_master".split("\u0020"+"-");
+    private final String[] fireBird = "connect -fb -DBServer -D:/Andromeda/TestDB/sqlCMD.FDB -SYSDBA -masterkey".split("\u0020"+"-");
+    private final String[][] columns = {
                                     {"new_Field1","integer","y","n"},
                                     {"new_Field2","varchar(20)","n","n"},
                                     {"new_Field3","varchar(10)","n","y"}
                                   };
-    ArrayList<String[]> tableColumns = new ArrayList<>();
+    private ArrayList<String[]> tableColumns = new ArrayList<>();
     @Before
     public void setup() {
-
         view = new Console();
         tableColumns.add(columns[0]);
         tableColumns.add(columns[1]);
         tableColumns.add(columns[2]);
-
-
     }
 
     @Test

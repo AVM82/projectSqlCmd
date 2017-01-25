@@ -19,12 +19,9 @@ import static org.junit.Assert.assertTrue;
 public class connectDisconnectTest {
     private View view;
     private DataBase db;
-    private String[] postgreSQL = "connect -pg -localhost -test -postgres -function root".split("\u0020"+"-");
-    private String[] msServer = "connect -ms -DBServer -avm -sa -SQL_master".split("\u0020"+"-");
-    private String[] fireBird = "connect -fb -DBServer -D:/Andromeda/TestDB/sqlCMD.FDB -SYSDBA -masterkey".split("\u0020"+"-");
-
-    public connectDisconnectTest() throws Exception {
-    }
+    private final String[] postgreSQL = "connect -pg -localhost -test -postgres -function root".split("\u0020"+"-");
+    private final String[] msServer = "connect -ms -DBServer -avm -sa -SQL_master".split("\u0020"+"-");
+    private final String[] fireBird = "connect -fb -DBServer -D:/Andromeda/TestDB/sqlCMD.FDB -SYSDBA -masterkey".split("\u0020"+"-");
 
 
     @Before
@@ -36,35 +33,26 @@ public class connectDisconnectTest {
     public void testConnectMSServer(){
 
         db = new Connect(view).getDb(msServer);
-
-            assertTrue(db.isConnect());
-            new Disconnect(db,view).doIt(new String[] {"disconnect"});
-            assertFalse(db.isConnect());
-
+        assertTrue(db.isConnect());
+        new Disconnect(db,view).doIt(new String[] {"disconnect"});
+        assertFalse(db.isConnect());
     }
 
     @Test
     public void testConnectFireBird(){
 
         db = new Connect(view).getDb(fireBird);
-
-            assertTrue(db.isConnect());
-            new Disconnect(db,view).doIt(new String[] {"disconnect"});
-            assertFalse(db.isConnect());
-
-
+        assertTrue(db.isConnect());
+        new Disconnect(db,view).doIt(new String[] {"disconnect"});
+        assertFalse(db.isConnect());
     }
 
     @Test
     public void testConnectPostgreSQL(){
 
         db = new Connect(view).getDb(postgreSQL);
-
-            assertTrue(db.isConnect());
-            new Disconnect(db,view).doIt(new String[] {"disconnect"});
-            assertFalse(db.isConnect());
-
-
-
+        assertTrue(db.isConnect());
+        new Disconnect(db,view).doIt(new String[] {"disconnect"});
+        assertFalse(db.isConnect());
     }
 }
