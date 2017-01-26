@@ -1,9 +1,6 @@
 package ua.avm.sqlCMD.model;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -97,6 +94,29 @@ public abstract class DataBase implements DBManager{
 
     }
 
+    public ArrayList<String[]> getDataByQuery(String query){
+
+        ArrayList<String[]> tableData = new ArrayList<>();
+        try(ResultSet resultSet = connection.createStatement().executeQuery(query))  {
+            ArrayList<String> rowData = new ArrayList<>();
+            ResultSetMetaData rsMetaData = resultSet.getMetaData();
+            int numberOfColumns = rsMetaData.getColumnCount();
+            while (resultSet.next()){
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    rowData.add(resultSet.getString(i));
+                }
+                tableData.add(rowData.toArray(new String[rowData.size()]));
+                rowData.clear();
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return tableData;
+
+    }
+
     public String[] getColumnList(String tableName) {
 
         ArrayList<String> columnName = new ArrayList<>();
@@ -123,5 +143,7 @@ public abstract class DataBase implements DBManager{
         return columnName.toArray(new String[columnName.size()]);
 
     }
+
+
 }
 

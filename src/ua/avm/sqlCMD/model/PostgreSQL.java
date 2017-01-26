@@ -182,34 +182,18 @@ public class PostgreSQL extends DataBase{
     @Override
     public ArrayList<String[]> viewTable(String[] commandLine) {
 
-        ArrayList<String[]> tableData = new ArrayList<>();
 
-        String sql = "select * from public."+commandLine[1];
+        String query = "select * from public."+commandLine[1];
         int length = commandLine.length;
         if(length == 3){
-            sql = sql.concat(" LIMIT "+commandLine[2]);
-            }else {
+            query = query.concat(" LIMIT "+commandLine[2]);
+        }else {
             if (length == 4) {
-                sql = sql.concat(" LIMIT " + commandLine[2] + " OFFSET " + commandLine[3]);
+                query = query.concat(" LIMIT " + commandLine[2] + " OFFSET " + commandLine[3]);
             }
         }
 
-        try(ResultSet resultSet = connection.createStatement().executeQuery(sql))  {
-            ArrayList<String> rowData = new ArrayList<>();
-            ResultSetMetaData rsMetaData = resultSet.getMetaData();
-            int numberOfColumns = rsMetaData.getColumnCount();
-            while (resultSet.next()){
-                for (int i = 1; i <= numberOfColumns; i++) {
-                    rowData.add(resultSet.getString(i));
-                }
-                tableData.add(rowData.toArray(new String[rowData.size()]));
-                rowData.clear();
-            }
-
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        return tableData;
+        return getDataByQuery(query);
     }
 
 }

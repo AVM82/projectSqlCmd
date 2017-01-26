@@ -207,8 +207,20 @@ public class DBFireBird extends DataBase{
     }
 
     @Override
-    public ArrayList<String[]> viewTable(String[] CommandLine) {
-        return null;
+    public ArrayList<String[]> viewTable(String[] commandLine) {
+
+        String query = "select ";
+        int length = commandLine.length;
+        if(length == 3){
+            query = query.concat(" FIRST "+commandLine[2]);
+        }else {
+            if (length == 4) {
+                query = query.concat(" FIRST " + commandLine[2] + " SKIP " + commandLine[3]);
+            }
+        }
+        query = query.concat(" * from "+commandLine[1]);
+
+        return getDataByQuery(query);
     }
 
 }

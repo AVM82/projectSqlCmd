@@ -81,7 +81,7 @@ public class Console implements View {
     }
 
     @Override
-    public void printFooter(int sizeCol) {
+    public void printFooter(int sizeCol) {//todo входной параметр с количеством колонок заменить этим число 2 при расчете длины
         for (int i = 0; i < sizeCol*2+3; i++) {
             this.write("-");
         }

@@ -2,6 +2,7 @@ package ua.avm.sqlCMD.model;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -194,7 +195,34 @@ public class MSServer extends DataBase{
 
     @Override
     public ArrayList<String[]> viewTable(String[] commandLine) {
-        return null;
+
+        String query = "use "+dbaseName+" select ";
+        int length = commandLine.length;
+        if(length == 3){
+            query = query.concat(" TOP "+commandLine[2]);
+        }else {
+            if (length == 4) {
+
+                int newLimit = Integer.parseInt(commandLine[2]) + Integer.parseInt(commandLine[3]);
+                query = query.concat(" TOP " + Integer.toString(newLimit));
+            }
+        }
+        query = query.concat(" * from "+commandLine[1]);
+
+        ArrayList<String[]> dataByQuery = getDataByQuery(query);
+        if (length == 4){
+
+            for (int i = 0; i < Integer.parseInt(commandLine[3]); i++) {
+
+                dataByQuery.remove(0);
+
+            }
+
+        }
+
+        return dataByQuery;
+
+
     }
 
 }

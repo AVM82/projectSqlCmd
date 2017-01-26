@@ -31,7 +31,7 @@ public class ViewTable implements Command{
 
         if (Utility.verifyParams(new int[]{1,2,3},command.length - 1,view)){
 
-            view.printTitle(db.getColumnList(command[1]), COLUMN_SIZE);
+            view.printTitle(db.getColumnList(command[1]), COLUMN_SIZE);//todo MS SQL е выводит с первого раза заголовки
 
             view.printTableData(db.viewTable(command), COLUMN_SIZE);
 
