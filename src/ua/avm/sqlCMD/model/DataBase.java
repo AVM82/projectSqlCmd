@@ -124,7 +124,7 @@ public abstract class DataBase implements DBManager{
         ResultSet columns = null;
         try {
             databaseMetaData = connection.getMetaData();
-            columns = databaseMetaData.getColumns(null,null,tableName,null);
+            columns = databaseMetaData.getColumns(dbaseName,null,tableName,null);
             while(columns.next()){
                 columnName.add(columns.getString("COLUMN_NAME"));
             }
