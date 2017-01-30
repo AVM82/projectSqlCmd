@@ -114,7 +114,7 @@ public class PostgreSQL extends DataBase{
         Statement statement;
         try {
             statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT relname,n_live_tup FROM pg_stat_user_tables");
+            ResultSet resultSet = statement.executeQuery("SELECT relname,n_live_tup + 1 FROM pg_stat_user_tables");
 
             while (resultSet.next()){
                 result.put(resultSet.getString(1), resultSet.getString(2));

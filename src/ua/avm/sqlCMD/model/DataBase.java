@@ -103,7 +103,7 @@ public abstract class DataBase implements DBManager{
             int numberOfColumns = rsMetaData.getColumnCount();
             while (resultSet.next()){
                 for (int i = 1; i <= numberOfColumns; i++) {
-                    rowData.add(resultSet.getString(i));
+                    rowData.add(resultSet.getString(i).trim());
                 }
                 tableData.add(rowData.toArray(new String[rowData.size()]));
                 rowData.clear();

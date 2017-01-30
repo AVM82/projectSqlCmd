@@ -31,11 +31,13 @@ public class ViewTable implements Command{
 
         if (Utility.verifyParams(new int[]{1,2,3},command.length - 1,view)){
 
-            view.printTitle(db.getColumnList(command[1]), COLUMN_SIZE);
+            String[] columnList = db.getColumnList(command[1]);
+
+            view.printTitle(columnList, COLUMN_SIZE);
 
             view.printTableData(db.viewTable(command), COLUMN_SIZE);
 
-            view.printFooter(COLUMN_SIZE);
+            view.printFooter(columnList.length * COLUMN_SIZE);
         }
 
     }

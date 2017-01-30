@@ -36,7 +36,7 @@ public class Utility {
             }
 
 
-            view.printFooter(sizeCol);
+            view.printFooter(title.length*sizeCol);
         }
 
 

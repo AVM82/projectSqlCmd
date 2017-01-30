@@ -37,7 +37,7 @@ public class listTabTest {
         Map<String, String> listTab = db.getListTable();
         Map<String, String> expected  = new HashMap<>();
 
-        expected.put("user","0");
+        expected.put("user","3");
 
         assertThat(listTab, is(expected));
         db.closeConnection();
