@@ -46,7 +46,8 @@ public class Controller {
                                                         new ListTab(db, view),
                                                         new CreateTab(db, view),
                                                         new DeleteTab(db, view),
-                                                        new ViewTable(db, view)
+                                                        new ViewTable(db, view),
+                                                        new InsertRow(db, view)
                                                     };
 
             for (Command cmd: command) {

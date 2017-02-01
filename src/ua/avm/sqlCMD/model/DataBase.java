@@ -145,5 +145,17 @@ public abstract class DataBase implements DBManager{
     }
 
 
+    public void insertRow(String query) {
+
+        try (Statement statement = connection.createStatement()){
+            statement.execute(query);
+            System.out.println("Row successfully inserted.\n");
+
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
 }
 

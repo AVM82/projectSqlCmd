@@ -26,4 +26,6 @@ public interface DBManager {
     boolean createTab(String tableName, ArrayList<String[]> columns);
 
     ArrayList<String[]> viewTable(String[] commandLine);
+
+    String buildInsertQuery(String[] split, String tableName);
 }

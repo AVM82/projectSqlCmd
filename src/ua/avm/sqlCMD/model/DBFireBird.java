@@ -223,5 +223,20 @@ public class DBFireBird extends DataBase{
         return getDataByQuery(query);
     }
 
+    @Override
+    public String buildInsertQuery(String[] insertData, String tableName) {
+        String firstPartOfQuery = "insert into "+tableName+"(";
+        String secondPartOfQuery = "values (";
+        for (int i = 0; i < insertData.length; i++){
+            String[] tmp = insertData[i].split("\\=");
+            firstPartOfQuery = firstPartOfQuery.concat(tmp[0]+",");
+            secondPartOfQuery = secondPartOfQuery.concat("'"+tmp[1]+"'"+",");
+        }
+        firstPartOfQuery = firstPartOfQuery.substring(0,firstPartOfQuery.length()-1).concat(") ");
+        secondPartOfQuery = secondPartOfQuery.substring(0,secondPartOfQuery.length()-1).concat(") ");
+
+        return firstPartOfQuery.concat(secondPartOfQuery);
+    }
+
 }
 
