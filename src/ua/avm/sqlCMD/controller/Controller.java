@@ -47,7 +47,10 @@ public class Controller {
                                                         new CreateTab(db, view),
                                                         new DeleteTab(db, view),
                                                         new ViewTable(db, view),
-                                                        new InsertRow(db, view)
+                                                        new InsertRow(db, view),
+                                                        new DeleteRow(db, view),
+                                                        new UpdateRow(db, view),
+                                                        new RunQuery(db, view)
                                                     };
 
             for (Command cmd: command) {

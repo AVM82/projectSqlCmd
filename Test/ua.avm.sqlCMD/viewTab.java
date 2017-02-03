@@ -36,6 +36,7 @@ public class viewTab {
 
 
         ArrayList<String[]> expected = new ArrayList<>();
+        expected.add(new String[]{"name","password"});
         expected.add(new String[]{"AVM","password"});
         expected.add(new String[]{"admin","*****"});
         expected.add(new String[]{"user1","qwerty"});
@@ -51,6 +52,7 @@ public class viewTab {
     public void viewTableMSServer(){
 
         ArrayList<String[]> expected = new ArrayList<>();
+        expected.add(new String[]{"id","name","password"});
         expected.add(new String[]{"1","avm","password"});
 
         db = new Connect(view).getDb(msServer);
@@ -64,10 +66,11 @@ public class viewTab {
     public void viewTableFireBird(){
 
         ArrayList<String[]> expected = new ArrayList<>();
-        expected.add(new String[]{"verDBase","20161129"});
+        expected.add(new String[]{"A_SYS","A_SYS_VALUE"});
+        expected.add(new String[]{"Lic","AVM"});
 
         db = new Connect(view).getDb(fireBird);
-        ArrayList<String[]> table = db.viewTable(new String[] {"view","A_SYS","1","1"});
+        ArrayList<String[]> table = db.viewTable(new String[] {"view","A_SYS","1","2"});
         for(int i = 0; i < table.size(); i++){
             assertThat(table.get(i), is(expected.get(i)));
         }

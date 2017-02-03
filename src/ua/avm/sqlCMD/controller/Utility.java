@@ -42,9 +42,6 @@ public class Utility {
 
     }
 
-     public static void printTab(ResultSet fieldData, View view){
-
-    }
 
     public static boolean verifyName(String name){
         return Character.isDigit(name.charAt(0));
@@ -83,5 +80,6 @@ public class Utility {
         view.warningWriteln("Are you sure to delete table "+objForDel+" (y/n)");
         return view.read().equals("y");
     }
+
 
 }

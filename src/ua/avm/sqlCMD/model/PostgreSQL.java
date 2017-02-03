@@ -212,4 +212,18 @@ public class PostgreSQL extends DataBase{
 
     }
 
+    @Override
+    public String buildDeleteQuery(String[] condition, String tableName) {
+        return "delete from public."+ tableName + " where " + condition[0] + "='" + condition[1] + "'";
+    }
+
+    @Override
+    public String buildUpdateQuery(String[] condition, String tableName) {
+        String[] set = condition[0].split("\\=");
+        String[] where = condition[1].split("\\=");
+
+        return  "update public."+tableName+" set "+set[0]+"='"+set[1]+"' where "+where[0]+"='"+where[1]+"'";
+
+    }
+
 }

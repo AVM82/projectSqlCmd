@@ -27,5 +27,9 @@ public interface DBManager {
 
     ArrayList<String[]> viewTable(String[] commandLine);
 
-    String buildInsertQuery(String[] split, String tableName);
+    String buildInsertQuery(String[] insertData, String tableName);
+
+    String buildDeleteQuery(String[] condition, String tableName);
+
+    String buildUpdateQuery(String[] condition, String tableName);
 }

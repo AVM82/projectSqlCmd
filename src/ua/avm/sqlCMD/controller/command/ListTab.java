@@ -14,6 +14,7 @@ public class ListTab implements Command {
     private View view;
     private DataBase db;
     private final String COMMAND_SAMPLE = "ltab";
+    private static final int COLUMN_SIZE = 30;
 
     public ListTab(DataBase db, View view) {
         this.view = view;
@@ -29,7 +30,8 @@ public class ListTab implements Command {
     public void doIt(String[] command) {
         if (Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
 
-            Utility.printTab(db.getListTable(),view, new String[]{"TABLE NAME","ROW COUNT"},30);
+            Utility.printTab(db.getListTable(),view, new String[]{"TABLE NAME","ROW COUNT"},COLUMN_SIZE);
+
 
         }
 

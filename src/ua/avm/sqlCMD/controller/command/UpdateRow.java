@@ -5,14 +5,15 @@ import ua.avm.sqlCMD.model.DataBase;
 import ua.avm.sqlCMD.view.View;
 
 /**
- * Created by AVM on 31.01.2017.
+ * Created by AVM on 02.02.2017.
  */
-public class InsertRow  implements Command{
-    private final String COMMAND_SAMPLE = "insert -tableName";
+public class UpdateRow implements Command {
+
+    private final String COMMAND_SAMPLE = "update -tableName";
     private View view;
     private DataBase db;
 
-    public InsertRow(DataBase db, View view) {
+    public UpdateRow(DataBase db, View view) {
 
         this.view = view;
         this.db = db;
@@ -26,6 +27,7 @@ public class InsertRow  implements Command{
 
     @Override
     public void doIt(String[] command) {
+
         if (Utility.verifyParams(COMMAND_SAMPLE, view.getCommandDelimiter(), command.length - 1, view)) {
             if (!db.isTableExist(command[1])) {
                 view.warningWriteln("Table is not exist.");
@@ -35,19 +37,19 @@ public class InsertRow  implements Command{
 
             String[] columnList = db.getColumnList(command[1]);
             view.writeln("***********************************************************************************************");
-            view.writeln("Table " +command[1]+" has following columns");
+            view.writeln("Table " + command[1] + " has following columns");
             view.write("|");
             for (int i = 0; i < columnList.length; i++) {
-                view.write(columnList[i]+"|");
+                view.write(columnList[i] + "|");
             }
             view.writeln("");
-            view.writeln("Enter a new row of table:\n"
-                    + "row1=value1|row2=value2|...|rowN=valueN\n"
+            view.writeln("Enter a condition for update row of table:\n"
+                    + "columnName=newValue|columnName=Value\n"
                     + "***********************************************************************************************\n");
             view.writeln("");
-            db.runQuery(db.buildInsertQuery(view.read().split("\\|"),command[1]));
-
+            db.runQuery(db.buildUpdateQuery(view.read().split("\\|"),command[1]));
 
         }
+
     }
 }

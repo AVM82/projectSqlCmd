@@ -96,14 +96,25 @@ public abstract class DataBase implements DBManager{
 
     public ArrayList<String[]> getDataByQuery(String query){
 
+
         ArrayList<String[]> tableData = new ArrayList<>();
         try(ResultSet resultSet = connection.createStatement().executeQuery(query))  {
             ArrayList<String> rowData = new ArrayList<>();
             ResultSetMetaData rsMetaData = resultSet.getMetaData();
             int numberOfColumns = rsMetaData.getColumnCount();
+            String[] columnName = new String[numberOfColumns];
+
+            for (int i = 1; i <= numberOfColumns; i++) {
+                columnName[i-1]=rsMetaData.getColumnLabel(i);
+            }
+            tableData.add(columnName);
             while (resultSet.next()){
                 for (int i = 1; i <= numberOfColumns; i++) {
-                    rowData.add(resultSet.getString(i).trim());
+                    String cellValue = resultSet.getString(i);
+                    if (cellValue == null){
+                        cellValue = "";
+                    }
+                    rowData.add(cellValue.trim());
                 }
                 tableData.add(rowData.toArray(new String[rowData.size()]));
                 rowData.clear();
@@ -145,11 +156,11 @@ public abstract class DataBase implements DBManager{
     }
 
 
-    public void insertRow(String query) {
+    public void runQuery(String query) {
 
         try (Statement statement = connection.createStatement()){
             statement.execute(query);
-            System.out.println("Row successfully inserted.\n");
+            System.out.println("The command completed successfully!\n");
 
 
         } catch (SQLException e) {
@@ -157,5 +168,8 @@ public abstract class DataBase implements DBManager{
         }
 
     }
+
+
+
 }
 
