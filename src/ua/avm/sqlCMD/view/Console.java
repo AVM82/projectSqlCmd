@@ -1,7 +1,9 @@
 package ua.avm.sqlCMD.view;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * Created by AVM on 12.10.2016.
@@ -103,5 +105,32 @@ public class Console implements View {
         return SECONDARY_DELIMITER;
     }
 
+    public void printTableData(Map<String, String> data, String[] title, int sizeCol){
 
+        if (data == null) {
+            this.warningWriteln("Command not supported for this database.");
+        }else{
+
+            Set<Map.Entry<String, String>> set = data.entrySet();
+
+            this.printTitle(title, sizeCol);
+
+            for (Map.Entry<String, String> value : set) {
+
+                String string1 = value.getKey();
+                String string2 = value.getValue();
+                this.write("|");
+                this.fWriteln(string1,sizeCol);
+                this.write("|");
+                this.fWriteln(string2,sizeCol);
+                this.write("|");
+                System.out.println("");
+            }
+
+
+            this.printFooter(title.length*sizeCol);
+        }
+
+
+    }
 }

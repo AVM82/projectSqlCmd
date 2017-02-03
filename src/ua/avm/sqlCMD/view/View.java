@@ -1,6 +1,7 @@
 package ua.avm.sqlCMD.view;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by AVM on 12.10.2016.
@@ -23,5 +24,6 @@ public interface View {
 
     void printTitle(String[] columnList, int sizeCol);
     void printTableData(ArrayList<String[]> tableData, int sizeCol);
+    void printTableData(Map<String, String> data, String[] title, int sizeCol);
     void printFooter(int sizeCol);
 }

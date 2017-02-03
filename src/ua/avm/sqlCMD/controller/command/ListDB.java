@@ -10,6 +10,7 @@ import ua.avm.sqlCMD.view.View;
  */
 public class ListDB implements Command {
     private final String COMMAND_SAMPLE = "ldb";
+    private static final int COLUMN_SIZE = 30;
     private View view;
     private DataBase db;
 
@@ -30,7 +31,7 @@ public class ListDB implements Command {
 
         if (Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
 
-            Utility.printTab(db.getListDB(),view, new String[]{"DATABASE NAME","OWNER"},20);
+            view.printTableData(db.getListDB(), new String[]{"DATABASE NAME","OWNER"},COLUMN_SIZE);
         }
     }
 }

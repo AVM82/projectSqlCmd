@@ -13,36 +13,6 @@ import java.util.Set;
  */
 public class Utility {
 
-    public static void printTab(Map<String, String> data, View view, String[] title, int sizeCol){
-
-        if (data == null) {
-            view.warningWriteln("Command not supported for this database.");
-        }else{
-
-            Set<Map.Entry<String, String>> set = data.entrySet();
-
-            view.printTitle(title, sizeCol);
-
-            for (Map.Entry<String, String> value : set) {
-
-                String string1 = value.getKey();
-                String string2 = value.getValue();
-                view.write("|");
-                view.fWriteln(string1,sizeCol);
-                view.write("|");
-                view.fWriteln(string2,sizeCol);
-                view.write("|");
-                System.out.println("");
-            }
-
-
-            view.printFooter(title.length*sizeCol);
-        }
-
-
-    }
-
-
     public static boolean verifyName(String name){
         return Character.isDigit(name.charAt(0));
     }
