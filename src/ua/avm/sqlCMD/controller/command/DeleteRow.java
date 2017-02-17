@@ -34,7 +34,6 @@ public class DeleteRow implements Command {
                 view.writeln("");
                 return;
             }
-
             String[] columnList = db.getColumnList(command[1]);
             view.writeln("***********************************************************************************************");
             view.writeln("Table " + command[1] + " has following columns");
@@ -48,7 +47,6 @@ public class DeleteRow implements Command {
                     + "***********************************************************************************************\n");
             view.writeln("");
             db.runQuery(db.buildDeleteQuery(view.read().split("\\="),command[1]));
-
         }
 
     }

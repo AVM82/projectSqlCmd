@@ -227,7 +227,7 @@ public class MSServer extends DataBase{
 
     @Override
     public String buildInsertQuery(String[] insertData, String tableName) {
-        String firstPartOfQuery = "insert into dbo."+tableName+"(";
+        String firstPartOfQuery = "use "+dbaseName+" insert into dbo."+tableName+"(";
         String secondPartOfQuery = "values (";
         for (int i = 0; i < insertData.length; i++){
             String[] tmp = insertData[i].split("\\=");

@@ -114,12 +114,17 @@ public class PostgreSQL extends DataBase{
         Statement statement;
         try {
             statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT relname,n_live_tup + 1 FROM pg_stat_user_tables");
-
+            ResultSet resultSet = statement.executeQuery("SELECT relname FROM pg_stat_user_tables");
+            ArrayList<String> tablesName = new ArrayList<>();
             while (resultSet.next()){
-                result.put(resultSet.getString(1), resultSet.getString(2));
-            }
 
+                tablesName.add(resultSet.getString(1));
+            }
+            for (int i = 0; i < tablesName.size(); i++) {
+                resultSet = statement.executeQuery("SELECT COUNT(*) from public."+tablesName.get(i));
+                resultSet.next();
+                result.put(tablesName.get(i), resultSet.getString(1));
+            }
             resultSet.close();
             statement.close();
         } catch (SQLException e) {
