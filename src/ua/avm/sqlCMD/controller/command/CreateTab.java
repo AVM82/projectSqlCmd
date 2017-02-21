@@ -11,16 +11,16 @@ import java.util.ArrayList;
  */
 public class CreateTab implements Command{
 
-    private final String COMMAND_SAMPLE = "createTab -tableName";
+    private final String COMMAND_SAMPLE;
     private final String COLUMN_SAMPLE = "new_Field1|varchar|y|n";
     private View view;
     private DataBase db;
 
-    public CreateTab(DataBase db, View view) {
+    public CreateTab(DataBase db, View view,String COMMAND_SAMPLE) {
 
         this.view = view;
         this.db = db;
-
+        this.COMMAND_SAMPLE = COMMAND_SAMPLE;
     }
 
 

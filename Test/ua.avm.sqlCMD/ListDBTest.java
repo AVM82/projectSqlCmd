@@ -14,24 +14,27 @@ import static org.junit.Assert.assertThat;
 /**
  * Created by AVM on 30.11.2016.
  */
-public class listDBTest {
+public class ListDBTest {
 
     View view;
     DataBase db;
     private final String[] postgreSQL = "connect -pg -localhost -test -postgres -function root".split("\u0020"+"-");
     private final String[] msServer = "connect -ms -DBServer -avm -sa -SQL_master".split("\u0020"+"-");
     private final String[] fireBird = "connect -fb -DBServer -D:/Andromeda/TestDB/sqlCMD.FDB -SYSDBA -masterkey".split("\u0020"+"-");
+    HashMap<String,String> cmd;
+
     @Before
     public void setup() {
 
         view = new Console();
+        cmd = new Commands().getCMD();
 
     }
 
     @Test
     public void testGetListDBPostgreSQL(){
 
-        db = new Connect(view).getDb(postgreSQL);
+        db = new Connect(view,cmd.get("Command connect to the database.")).getDb(postgreSQL);
 
         HashMap<String, String> listDB = db.getListDB();
         HashMap<String, String> expected  = new HashMap<>();
@@ -46,7 +49,7 @@ public class listDBTest {
     @Test
     public void testGetListDBMSServer(){
 
-        db = new Connect(view).getDb(msServer);
+        db = new Connect(view,cmd.get("Command connect to the database.")).getDb(msServer);
         HashMap<String, String> listDB = db.getListDB();
         HashMap<String, String> expected  = new HashMap<>();
 
@@ -63,7 +66,7 @@ public class listDBTest {
     @Test
     public void testGetListDBFireBird(){
 
-        db = new Connect(view).getDb(fireBird);
+        db = new Connect(view,cmd.get("Command connect to the database.")).getDb(fireBird);
         HashMap<String, String> listDB = db.getListDB();
 
         assertNull(listDB);

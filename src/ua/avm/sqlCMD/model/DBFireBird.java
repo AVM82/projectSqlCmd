@@ -251,5 +251,10 @@ public class DBFireBird extends DataBase{
         return  "update "+tableName+" set "+set[0]+"='"+set[1]+"' where "+where[0]+"='"+where[1]+"'";
     }
 
+    @Override
+    public String buildClearTabQuery(String tableName) {
+        return "delete from "+tableName;
+    }
+
 }
 

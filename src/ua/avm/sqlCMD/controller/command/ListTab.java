@@ -13,12 +13,13 @@ public class ListTab implements Command {
 
     private View view;
     private DataBase db;
-    private final String COMMAND_SAMPLE = "ltab";
+    private final String COMMAND_SAMPLE;
     private static final int COLUMN_SIZE = 30;
 
-    public ListTab(DataBase db, View view) {
+    public ListTab(DataBase db, View view, String COMMAND_SAMPLE) {
         this.view = view;
         this.db = db;
+        this.COMMAND_SAMPLE = COMMAND_SAMPLE;
     }
 
     @Override

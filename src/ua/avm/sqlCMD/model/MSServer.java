@@ -159,7 +159,7 @@ public class MSServer extends DataBase{
     @Override
     public boolean createTab(String tableName, ArrayList<String[]> columns) {
         try {
-            String sql = "CREATE TABLE "+tableName+" ( ";
+            String sql = "use "+dbaseName+" CREATE TABLE "+tableName+" ( ";
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < columns.size(); i++){
                 String[] oneColumn = columns.get(i);
@@ -251,6 +251,11 @@ public class MSServer extends DataBase{
         String[] where = condition[1].split("\\=");
 
         return  "update dbo."+tableName+" set "+set[0]+"='"+set[1]+"' where "+where[0]+"='"+where[1]+"'";
+    }
+
+    @Override
+    public String buildClearTabQuery(String tableName) {
+        return "delete from dbo."+tableName;
     }
 
 }

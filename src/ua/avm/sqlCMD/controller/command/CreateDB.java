@@ -12,11 +12,13 @@ import ua.avm.sqlCMD.view.View;
 public class CreateDB implements Command {
     private View view;
     private DataBase db;
-    private final String COMMAND_SAMPLE = "createDB -dbName";
+    private final String COMMAND_SAMPLE;
 
-    public CreateDB(DataBase db, View view) {
+    public CreateDB(DataBase db, View view, String COMMAND_SAMPLE) {
         this.view = view;
         this.db = db;
+        this.COMMAND_SAMPLE = COMMAND_SAMPLE;
+
     }
 
     @Override

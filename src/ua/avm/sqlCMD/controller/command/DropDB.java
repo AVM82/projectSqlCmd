@@ -9,13 +9,14 @@ import ua.avm.sqlCMD.view.View;
  */
 public class DropDB implements Command{
 
-    private final String COMMAND_SAMPLE = "dropdb -dbName";
+    private final String COMMAND_SAMPLE;
     private View view;
     private DataBase db;
 
-    public DropDB(DataBase db, View view) {
+    public DropDB(DataBase db, View view, String COMMAND_SAMPLE) {
         this.view = view;
         this.db = db;
+        this.COMMAND_SAMPLE = COMMAND_SAMPLE;
     }
 
     @Override

@@ -32,4 +32,6 @@ public interface DBManager {
     String buildDeleteQuery(String[] condition, String tableName);
 
     String buildUpdateQuery(String[] condition, String tableName);
+
+    String buildClearTabQuery(String tableName);
 }

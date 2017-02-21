@@ -13,12 +13,13 @@ public class ViewTable implements Command{
 
     private View view;
     private DataBase db;
-    private final String COMMAND_SAMPLE = "view -tableName -limit -offset";
+    private final String COMMAND_SAMPLE;
     private final int COLUMN_SIZE = 20;
 
-    public ViewTable(DataBase db, View view) {
+    public ViewTable(DataBase db, View view, String COMMAND_SAMPLE) {
         this.view = view;
         this.db = db;
+        this.COMMAND_SAMPLE = COMMAND_SAMPLE;
     }
 
 

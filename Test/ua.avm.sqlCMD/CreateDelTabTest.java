@@ -8,6 +8,7 @@ import ua.avm.sqlCMD.view.Console;
 import ua.avm.sqlCMD.view.View;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -15,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by AVM on 14.12.2016.
  */
-public class createDelTabTest {
+public class CreateDelTabTest {
 
     private View view;
     private DataBase db;
@@ -28,18 +29,20 @@ public class createDelTabTest {
                                     {"new_Field3","varchar(10)","n","y"}
                                   };
     private ArrayList<String[]> tableColumns = new ArrayList<>();
+    HashMap<String,String> cmd;
     @Before
     public void setup() {
         view = new Console();
         tableColumns.add(columns[0]);
         tableColumns.add(columns[1]);
         tableColumns.add(columns[2]);
+        cmd = new Commands().getCMD();
     }
 
     @Test
     public void testCreateDropTabFireBird(){
 
-        db = new Connect(view).getDb(fireBird);
+        db = new Connect(view, cmd.get("Command connect to the database.")).getDb(fireBird);
         assertFalse(db.isTableExist("NEW_TAB"));
         db.createTab("NEW_TAB", tableColumns);
         assertTrue(db.isTableExist("NEW_TAB"));
@@ -52,7 +55,7 @@ public class createDelTabTest {
     @Test
     public void testCreateDelTabPestgre(){
 
-        db = new Connect(view).getDb(postgreSQL);
+        db = new Connect(view, cmd.get("Command connect to the database.")).getDb(postgreSQL);
         assertFalse(db.isTableExist("new_tab"));
         db.createTab("new_tab", tableColumns);
         assertTrue(db.isTableExist("new_tab"));
@@ -63,7 +66,7 @@ public class createDelTabTest {
     @Test
     public void testCreateTabMSServer(){
 
-        db = new Connect(view).getDb(msServer);
+        db = new Connect(view, cmd.get("Command connect to the database.")).getDb(msServer);
         assertFalse(db.isTableExist("new_tab"));
         db.createTab("new_tab", tableColumns);
         assertTrue(db.isTableExist("new_tab"));

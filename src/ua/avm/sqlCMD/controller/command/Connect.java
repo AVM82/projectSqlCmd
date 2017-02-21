@@ -11,19 +11,21 @@ import ua.avm.sqlCMD.view.View;
  */
 public class Connect implements Command {
 
-    private final String COMMAND_SAMPLE = "connect -DBMS -DB_Server[:port] -DB_Name -user -password";
+    private final String COMMAND_SAMPLE;
     private View view;
     private DataBase db;
 
-    public Connect(View view) {
+    public Connect(View view, String COMMAND_SAMPLE) {
 
         this.view = view;
+        this.COMMAND_SAMPLE = COMMAND_SAMPLE;
     }
 
     @Override
     public boolean canDoIt(String command) {
 
         return COMMAND_SAMPLE.substring(0,COMMAND_SAMPLE.indexOf(view.getCommandDelimiter())).equals(command);
+
     }
 
     @Override
@@ -36,7 +38,7 @@ public class Connect implements Command {
     public DataBase getDb(String[] command) {
 
         if (command[0].equals("exit")){
-            new Exit(view).doIt(command);
+            new Exit(view,"exit").doIt(command);
         }
 
         int countSample = Utility.countOfParam(COMMAND_SAMPLE,view.getCommandDelimiter());

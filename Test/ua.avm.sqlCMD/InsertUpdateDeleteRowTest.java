@@ -8,6 +8,7 @@ import ua.avm.sqlCMD.view.Console;
 import ua.avm.sqlCMD.view.View;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -16,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by AVM on 07.02.2017.
  */
-public class insertUpdateDeleteRowTest {
+public class InsertUpdateDeleteRowTest {
 
 
     private View view;
@@ -29,12 +30,13 @@ public class insertUpdateDeleteRowTest {
 
     private ArrayList<String[]> expected = new ArrayList<>();
     private ArrayList<String[]> dataSet;
+    HashMap<String,String> cmd;
 
     @Before
     public void setup() {
 
         view = new Console();
-
+        cmd = new Commands().getCMD();
     }
 
     @Test
@@ -45,7 +47,7 @@ public class insertUpdateDeleteRowTest {
         String updateRow = "name=newValue|name=value1";
         String deleteRow = "name=newValue";
 
-        db = new Connect(view).getDb(postgreSQL);
+        db = new Connect(view,cmd.get("Command connect to the database.")).getDb(postgreSQL);
 
         //check insert
         db.runQuery(db.buildInsertQuery(insertRow.split(view.getSecondaryDelimiter()),tableName));
@@ -76,7 +78,7 @@ public class insertUpdateDeleteRowTest {
         String updateRow = "name=newValue|name=value1";
         String deleteRow = "name=newValue";
 
-        db = new Connect(view).getDb(msServer);
+        db = new Connect(view,cmd.get("Command connect to the database.")).getDb(msServer);
 
         //check insert
         db.runQuery(db.buildInsertQuery(insertRow.split(view.getSecondaryDelimiter()),tableName));
@@ -107,7 +109,7 @@ public class insertUpdateDeleteRowTest {
         String updateRow = "A_SYS=newValue|A_SYS=value1";
         String deleteRow = "A_SYS=newValue";
 
-        db = new Connect(view).getDb(fireBird);
+        db = new Connect(view,cmd.get("Command connect to the database.")).getDb(fireBird);
 
         //check insert
         db.runQuery(db.buildInsertQuery(insertRow.split(view.getSecondaryDelimiter()),tableName));

@@ -9,14 +9,15 @@ import ua.avm.sqlCMD.view.View;
  */
 public class UpdateRow implements Command {
 
-    private final String COMMAND_SAMPLE = "update -tableName";
+    private final String COMMAND_SAMPLE;
     private View view;
     private DataBase db;
 
-    public UpdateRow(DataBase db, View view) {
+    public UpdateRow(DataBase db, View view, String COMMAND_SAMPLE) {
 
         this.view = view;
         this.db = db;
+        this.COMMAND_SAMPLE = COMMAND_SAMPLE;
 
     }
 

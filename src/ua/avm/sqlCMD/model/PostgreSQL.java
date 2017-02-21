@@ -184,6 +184,8 @@ public class PostgreSQL extends DataBase{
         }
     }
 
+
+
     @Override
     public ArrayList<String[]> viewTable(String[] commandLine) {
 
@@ -230,5 +232,11 @@ public class PostgreSQL extends DataBase{
         return  "update public."+tableName+" set "+set[0]+"='"+set[1]+"' where "+where[0]+"='"+where[1]+"'";
 
     }
+
+    @Override
+    public String buildClearTabQuery(String tableName) {
+        return "delete from public."+tableName;
+    }
+
 
 }

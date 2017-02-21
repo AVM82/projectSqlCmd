@@ -9,14 +9,15 @@ import ua.avm.sqlCMD.view.View;
  */
 public class DeleteRow implements Command {
 
-    private final String COMMAND_SAMPLE = "delete -tableName";
+    private final String COMMAND_SAMPLE;
     private View view;
     private DataBase db;
 
-    public DeleteRow(DataBase db, View view) {
+    public DeleteRow(DataBase db, View view,String COMMAND_SAMPLE) {
 
         this.view = view;
         this.db = db;
+        this.COMMAND_SAMPLE = COMMAND_SAMPLE;
 
     }
 

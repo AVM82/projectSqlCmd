@@ -8,14 +8,15 @@ import ua.avm.sqlCMD.view.View;
  * Created by AVM on 31.01.2017.
  */
 public class InsertRow  implements Command{
-    private final String COMMAND_SAMPLE = "insert -tableName";
+    private final String COMMAND_SAMPLE;
     private View view;
     private DataBase db;
 
-    public InsertRow(DataBase db, View view) {
+    public InsertRow(DataBase db, View view, String COMMAND_SAMPLE) {
 
         this.view = view;
         this.db = db;
+        this.COMMAND_SAMPLE = COMMAND_SAMPLE;
 
     }
 

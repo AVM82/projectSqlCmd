@@ -12,14 +12,15 @@ public class Disconnect implements Command {
 
     private View view;
     private DataBase db;
-    private final String COMMAND_SAMPLE = "disconnect";
+    private final String COMMAND_SAMPLE;
 
 
 
-    public Disconnect(DataBase db, View view) {
+    public Disconnect(DataBase db, View view, String COMMAND_SAMPLE) {
 
         this.view = view;
         this.db = db;
+        this.COMMAND_SAMPLE = COMMAND_SAMPLE;
 
     }
 

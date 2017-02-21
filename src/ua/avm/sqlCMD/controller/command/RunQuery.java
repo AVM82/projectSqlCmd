@@ -11,14 +11,15 @@ import java.util.ArrayList;
 public class RunQuery implements Command {
 
     private static final int COLUMN_SIZE = 20;
-    private final String COMMAND_SAMPLE = "query -queryLine";
+    private final String COMMAND_SAMPLE;
     private View view;
     private DataBase db;
 
-    public RunQuery(DataBase db, View view) {
+    public RunQuery(DataBase db, View view, String COMMAND_SAMPLE) {
 
         this.view = view;
         this.db = db;
+        this.COMMAND_SAMPLE = COMMAND_SAMPLE;
 
     }
 

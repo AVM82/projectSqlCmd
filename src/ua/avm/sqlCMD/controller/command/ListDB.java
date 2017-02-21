@@ -9,14 +9,15 @@ import ua.avm.sqlCMD.view.View;
  * Created by AVM on 18.11.2016.
  */
 public class ListDB implements Command {
-    private final String COMMAND_SAMPLE = "ldb";
+    private final String COMMAND_SAMPLE;
     private static final int COLUMN_SIZE = 30;
     private View view;
     private DataBase db;
 
-    public ListDB(DataBase db, View view) {
+    public ListDB(DataBase db, View view, String COMMAND_SAMPLE) {
 
         this.view = view;
+        this.COMMAND_SAMPLE = COMMAND_SAMPLE;
         this.db = db;
 
     }
