@@ -36,6 +36,7 @@ public class Controller {
         commands.put("Command connect to the database.","connect -DBMS -DB_Server[:port] -DB_Name -user -password");
         commands.put("Command to view help.","help");
         commands.put("Command clears the table.","clear -tableName");
+//        commands.put("Unknown Command","UnknownCommand");
 
     }
 
@@ -73,7 +74,8 @@ public class Controller {
                                                         new UpdateRow(db, view,commands.get("Command to update a row in the table.")),
                                                         new RunQuery(db, view,commands.get("Command executes query.")),
                                                         new Help(view, commands,commands.get("Command to view help.")),
-                                                        new Clear(db,view,commands.get("Command clears the table."))
+                                                        new Clear(db,view,commands.get("Command clears the table.")),
+                                                        new UnknownCommand(view,commands)
                                                     };
 
             for (Command cmd: command) {
