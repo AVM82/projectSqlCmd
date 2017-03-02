@@ -2,6 +2,7 @@ package ua.avm.sqlCMD.controller.command;
 
 import ua.avm.sqlCMD.controller.Utility;
 import ua.avm.sqlCMD.model.DataBase;
+import ua.avm.sqlCMD.view.Console;
 import ua.avm.sqlCMD.view.View;
 
 /**
@@ -29,7 +30,7 @@ public class DropDB implements Command{
     public void doIt(String[] command) {
 
         if (Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
-            if (Utility.requestForConfirmation(view,command[1])){
+            if (view.requestForConfirmation()){
 
                 if(db.dropDB(command[1])){
 

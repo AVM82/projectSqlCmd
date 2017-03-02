@@ -54,69 +54,86 @@ public class DBFireBird extends DataBase{
 
     @Override
     public boolean createDB(String dbName) {
-        try {
-
-            FBManager fbManager = new FBManager();
+        FBManager fbManager = new FBManager();
+        try{
             fbManager.setServer(server);
             fbManager.setPort(Integer.valueOf(port));
             fbManager.setUserName("sysdba");
             fbManager.setPassword("masterkey");
             fbManager.start();
             fbManager.createDatabase(dbName,userName, password);
-            fbManager.stop();
             return true;
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return false;
         }
+        finally {
+            try {
+                fbManager.stop();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+
+        }
 
     }
 
     @Override
     public boolean isDataBaseExist(String dbName) {
-    try{
         FBManager fbManager = new FBManager();
-        fbManager.setServer(server);
-        fbManager.setPort(Integer.valueOf(port));
-        fbManager.setUserName("sysdba");
-        fbManager.setPassword("masterkey");
-        fbManager.start();
-        boolean exist = fbManager.isDatabaseExists(dbName,userName, password);
-        fbManager.stop();
-        return exist;
+        try{
+            fbManager.setServer(server);
+            fbManager.setPort(Integer.valueOf(port));
+            fbManager.setUserName("sysdba");
+            fbManager.setPassword("masterkey");
+            fbManager.start();
+            boolean exist = fbManager.isDatabaseExists(dbName,userName, password);
+            return exist;
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+    finally {
 
-    } catch (Exception e) {
-        System.err.println(e.getMessage());
-        return false;
-    }
+            try {
+                fbManager.stop();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        }
     }
 
     @Override
     public boolean dropDB(String dbName){
+        FBManager fbManager = new FBManager();
         try{
-
-            FBManager fbManager = new FBManager();
             fbManager.setServer(server);
             fbManager.setPort(Integer.valueOf(port));
             fbManager.setUserName("sysdba");
             fbManager.setPassword("masterkey");
             fbManager.start();
             fbManager.dropDatabase(dbName,userName, password);
-            fbManager.stop();
+
             return true;
 
         } catch(Exception e) {
             System.err.println(e.getMessage());
             return false;
         }
+        finally {
+            try {
+                fbManager.stop();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        }
     }
 
     @Override
     public boolean dropTable(String tableName) {
-        try {
-            connection.createStatement().execute("DROP TABLE "+tableName);
-            return true;
+        try (Statement statement = connection.createStatement()) {
+            return  statement.execute("DROP TABLE "+tableName);
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -127,33 +144,29 @@ public class DBFireBird extends DataBase{
     @Override
     public Map<String, String> getListTable() {
         HashMap<String, String> result = new HashMap<>();
-        Statement statement;
-        try {
-            statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("EXECUTE BLOCK " +
-                    "returns ( tab varchar(30), cnt integer, stm varchar(60) ) " +
-                    "as " +
-                    "BEGIN " +
-                    "for select trim(r.RDB$RELATION_NAME), cast('select count(*) from \"'||trim(r.RDB$RELATION_NAME)||'\"' as varchar(60)) " +
-                    "from RDB$RELATIONS r " +
-                    "where (r.RDB$SYSTEM_FLAG is null or r.RDB$SYSTEM_FLAG = 0) and r.RDB$VIEW_BLR is null " +
-                    "order by 1 " +
-                    "into :tab, :stm " +
-                    "DO " +
-                    "BEGIN " +
-                    "execute statement :stm into :cnt; " +
-                    "suspend; " +
-                    "END " +
-                    "END ");
+        String query = "EXECUTE BLOCK " +
+                "returns ( tab varchar(30), cnt integer, stm varchar(60) ) " +
+                "as " +
+                "BEGIN " +
+                "for select trim(r.RDB$RELATION_NAME), cast('select count(*) from \"'||trim(r.RDB$RELATION_NAME)||'\"' as varchar(60)) " +
+                "from RDB$RELATIONS r " +
+                "where (r.RDB$SYSTEM_FLAG is null or r.RDB$SYSTEM_FLAG = 0) and r.RDB$VIEW_BLR is null " +
+                "order by 1 " +
+                "into :tab, :stm " +
+                "DO " +
+                "BEGIN " +
+                "execute statement :stm into :cnt; " +
+                "suspend; " +
+                "END " +
+                "END ";
+        try(ResultSet resultSet = connection.createStatement().executeQuery(query)) {
 
             while (resultSet.next()){
                 result.put(resultSet.getString(1), resultSet.getString(2));
             }
 
-            resultSet.close();
-            statement.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
 
         return result;
@@ -161,8 +174,8 @@ public class DBFireBird extends DataBase{
 
     @Override
     public boolean isTableExist(String tableName) {
-        try {
-            ResultSet resultSet = connection.createStatement().executeQuery("select COUNT(*) from rdb$relations where rdb$relation_name = '"+tableName+"'");
+        String query = "select COUNT(*) from rdb$relations where rdb$relation_name = '"+tableName+"'";
+        try(ResultSet resultSet = connection.createStatement().executeQuery(query)) {
             resultSet.next();
             return resultSet.getBoolean(1);
 
@@ -176,28 +189,27 @@ public class DBFireBird extends DataBase{
     @Override
     public boolean createTab(String tableName, ArrayList<String[]> columns) {
 
-        try {
-            String sql = "CREATE TABLE "+tableName+" ( ";
-            StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i < columns.size(); i++){
-                String[] oneColumn = columns.get(i);
-                sql = sql.concat(stringBuilder.append(oneColumn[0]).append(" ").append(oneColumn[1]).append(" ").toString());
-                stringBuilder.delete(0,stringBuilder.length());
-                if (oneColumn[3].equals("n")){
-                    sql = sql.concat(" NOT NULL ");
-                }
-                if (oneColumn[2].equals("y")){
-                    sql = sql.concat(" PRIMARY KEY ");
-                }
-                if (i < columns.size() - 1){
-                    sql = sql.concat(",");
-                }else{
-                    sql = sql.concat(")");
-                }
-
+        String query = "CREATE TABLE "+tableName+" ( ";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < columns.size(); i++){
+            String[] oneColumn = columns.get(i);
+            query = query.concat(stringBuilder.append(oneColumn[0]).append(" ").append(oneColumn[1]).append(" ").toString());
+            stringBuilder.delete(0,stringBuilder.length());
+            if (oneColumn[3].equals("n")){
+                query = query.concat(" NOT NULL ");
             }
-            connection.createStatement().execute(sql);
-            return true;
+            if (oneColumn[2].equals("y")){
+                query = query.concat(" PRIMARY KEY ");
+            }
+            if (i < columns.size() - 1){
+                query = query.concat(",");
+            }else{
+                query = query.concat(")");
+            }
+
+        }
+        try(Statement statement = connection.createStatement()) {
+            return  statement.execute(query);
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());

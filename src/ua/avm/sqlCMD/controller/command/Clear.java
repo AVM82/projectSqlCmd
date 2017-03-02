@@ -2,6 +2,7 @@ package ua.avm.sqlCMD.controller.command;
 
 import ua.avm.sqlCMD.controller.Utility;
 import ua.avm.sqlCMD.model.DataBase;
+import ua.avm.sqlCMD.view.Console;
 import ua.avm.sqlCMD.view.View;
 
 /**
@@ -29,11 +30,10 @@ public class Clear implements Command {
     public void doIt(String[] command) {
 
         if (Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
-            if (Utility.requestForConfirmation(view,command[1])){
+            if (view.requestForConfirmation()){
                 if (db.isTableExist(command[1])){
                     db.runQuery(db.buildClearTabQuery(command[1]));
                     view.writeln("Table \""+command[1]+"\" is empty");
-
                 }
             }
         }

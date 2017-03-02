@@ -12,6 +12,12 @@ public class Console implements View {
 
     private String prefix = "> ";
 
+    @Override
+    public boolean requestForConfirmation(){
+        warningWriteln("Are you sure? (y/n)");
+        return read().equals("y");
+    }
+
 
     @Override
     public void writeln(String message) {

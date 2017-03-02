@@ -31,7 +31,7 @@ public class Connect implements Command {
     @Override
     public void doIt(String[] command) {
 
-        db = this.getDb(command);
+        db = getDb(command);
 
     }
 

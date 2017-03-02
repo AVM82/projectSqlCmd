@@ -29,25 +29,27 @@ public class DeleteRow implements Command {
     @Override
     public void doIt(String[] command) {
 
-        if (Utility.verifyParams(COMMAND_SAMPLE, view.getCommandDelimiter(), command.length - 1, view)) {
-            if (!db.isTableExist(command[1])) {
-                view.warningWriteln("Table is not exist.");
+        if(view.requestForConfirmation()) {
+            if (Utility.verifyParams(COMMAND_SAMPLE, view.getCommandDelimiter(), command.length - 1, view)) {
+                if (!db.isTableExist(command[1])) {
+                    view.warningWriteln("Table is not exist.");
+                    view.writeln("");
+                    return;
+                }
+                String[] columnList = db.getColumnList(command[1]);
+                view.writeln("***********************************************************************************************");
+                view.writeln("Table " + command[1] + " has following columns");
+                view.write("|");
+                for (int i = 0; i < columnList.length; i++) {
+                    view.write(columnList[i] + "|");
+                }
                 view.writeln("");
-                return;
+                view.writeln("Enter a condition for delete row of table:\n"
+                        + "columnName=value\n"
+                        + "***********************************************************************************************\n");
+                view.writeln("");
+                db.runQuery(db.buildDeleteQuery(view.read().split("\\="), command[1]));
             }
-            String[] columnList = db.getColumnList(command[1]);
-            view.writeln("***********************************************************************************************");
-            view.writeln("Table " + command[1] + " has following columns");
-            view.write("|");
-            for (int i = 0; i < columnList.length; i++) {
-                view.write(columnList[i] + "|");
-            }
-            view.writeln("");
-            view.writeln("Enter a condition for delete row of table:\n"
-                    + "columnName=value\n"
-                    + "***********************************************************************************************\n");
-            view.writeln("");
-            db.runQuery(db.buildDeleteQuery(view.read().split("\\="),command[1]));
         }
 
     }

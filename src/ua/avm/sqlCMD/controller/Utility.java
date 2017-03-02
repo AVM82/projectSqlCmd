@@ -46,10 +46,5 @@ public class Utility {
 
     }
 
-    public static boolean requestForConfirmation(View view, String objForDel){
-        view.warningWriteln("Are you sure? (y/n)");
-        return view.read().equals("y");
-    }
-
 
 }

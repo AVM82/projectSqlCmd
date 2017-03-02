@@ -11,10 +11,6 @@ public abstract class DataBase implements DBManager{
     protected String userName;
     protected String password;
 
-    public String getDbaseName() {
-        return dbaseName;
-    }
-
     protected String dbaseName = null;
     protected String port;
     protected String server;
@@ -140,14 +136,14 @@ public abstract class DataBase implements DBManager{
                 columnName.add(columns.getString("COLUMN_NAME"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         finally {
 
             try {
                 columns.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
         }
 

@@ -21,6 +21,7 @@ public interface View {
 
 
     String read();
+    boolean requestForConfirmation();
 
     void printTitle(String[] columnList, int sizeCol);
     void printTableData(ArrayList<String[]> tableData, int sizeCol);

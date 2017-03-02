@@ -39,21 +39,17 @@ public class PostgreSQL extends DataBase{
     @Override
     public HashMap<String, String> getListDB(){
         HashMap<String, String> result = new HashMap<>();
-        Statement statement;
-        try {
-            statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT pg_database.datname, " +
-                    "pg_user.usename FROM pg_database, pg_user " +
-                    " WHERE pg_database.datdba = pg_user.usesysid and datistemplate = false");
+        String query = "SELECT pg_database.datname, " +
+                "pg_user.usename FROM pg_database, pg_user " +
+                " WHERE pg_database.datdba = pg_user.usesysid and datistemplate = false";
+        try (ResultSet resultSet = connection.createStatement().executeQuery(query)){
 
             while (resultSet.next()){
                 result.put(resultSet.getString(1), resultSet.getString(2));
             }
 
-            resultSet.close();
-            statement.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
 
         return result;
@@ -61,10 +57,9 @@ public class PostgreSQL extends DataBase{
 
     @Override
     public boolean createDB(String dbName) {
-        try {
-            connection.createStatement().execute("CREATE DATABASE "+dbName+" WITH OWNER = "+userName);
-            return true;
 
+        try (Statement statement = connection.createStatement()){
+            return statement.execute("CREATE DATABASE "+dbName+" WITH OWNER = "+userName);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
@@ -74,10 +69,9 @@ public class PostgreSQL extends DataBase{
 
     @Override
     public boolean isDataBaseExist(String dbName) {
-        try {
-            ResultSet resultSet = connection.createStatement().executeQuery("SELECT 1 FROM pg_database WHERE datname = '"+dbName+"'");
+        String query = "SELECT 1 FROM pg_database WHERE datname = '"+dbName+"'";
+        try(ResultSet resultSet  = connection.createStatement().executeQuery(query)) {
             return (resultSet.next())&&(resultSet.getBoolean(1));
-
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
@@ -86,9 +80,9 @@ public class PostgreSQL extends DataBase{
 
     @Override
     public boolean dropDB(String dbName) {
-        try {
-            connection.createStatement().execute("DROP DATABASE "+dbName);
-            return true;
+
+        try (Statement statement = connection.createStatement()) {
+            return statement.execute("DROP DATABASE "+dbName);
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -98,9 +92,8 @@ public class PostgreSQL extends DataBase{
 
     @Override
     public boolean dropTable(String tableName) {
-        try {
-            connection.createStatement().execute("DROP TABLE "+tableName);
-            return true;
+        try (Statement statement = connection.createStatement()) {
+            return  statement.execute("DROP TABLE "+tableName);
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -111,10 +104,10 @@ public class PostgreSQL extends DataBase{
     @Override
     public Map<String, String> getListTable() {
         HashMap<String, String> result = new HashMap<>();
-        Statement statement;
-        try {
-            statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT relname FROM pg_stat_user_tables");
+        ResultSet resultSet = null;
+        try(Statement statement = connection.createStatement()) {
+
+            resultSet = statement.executeQuery("SELECT relname FROM pg_stat_user_tables");
             ArrayList<String> tablesName = new ArrayList<>();
             while (resultSet.next()){
 
@@ -125,10 +118,16 @@ public class PostgreSQL extends DataBase{
                 resultSet.next();
                 result.put(tablesName.get(i), resultSet.getString(1));
             }
-            resultSet.close();
-            statement.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
+        }
+        finally {
+
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
         }
 
         return result;
@@ -138,10 +137,9 @@ public class PostgreSQL extends DataBase{
 
     @Override
     public boolean isTableExist(String tableName) {
-
-        try {
-            ResultSet resultSet = connection.createStatement().executeQuery("SELECT EXISTS ( SELECT 1"+
-                    " FROM information_schema.tables WHERE  table_name = '"+tableName+"')");
+        String query = "SELECT EXISTS ( SELECT 1"+
+                " FROM information_schema.tables WHERE  table_name = '"+tableName+"')";
+        try (ResultSet resultSet = connection.createStatement().executeQuery(query)){
             resultSet.next();
             return resultSet.getBoolean(1);
 
@@ -154,29 +152,27 @@ public class PostgreSQL extends DataBase{
 
     @Override
     public boolean createTab(String tableName, ArrayList<String[]> columns) {
-//todo all of try...catch change to try-with-resources
-        try {
-            String sql = "CREATE TABLE "+tableName+" ( ";
-            StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i < columns.size(); i++){
-                String[] oneColumn = columns.get(i);
-                sql = sql.concat(stringBuilder.append(oneColumn[0]).append(" ").append(oneColumn[1]).append(" ").toString());
-                stringBuilder.delete(0,stringBuilder.length());
-                if (oneColumn[2].equals("y")){
-                    sql = sql.concat("PRIMARY KEY ");
-                }
-                if (oneColumn[3].equals("n")){
-                    sql = sql.concat("NOT NULL ");
-                }
-                if (i < columns.size() - 1){
-                    sql = sql.concat(",");
-                }else{
-                    sql = sql.concat(")");
-                }
-
+        String sql = "CREATE TABLE "+tableName+" ( ";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < columns.size(); i++){
+            String[] oneColumn = columns.get(i);
+            sql = sql.concat(stringBuilder.append(oneColumn[0]).append(" ").append(oneColumn[1]).append(" ").toString());
+            stringBuilder.delete(0,stringBuilder.length());
+            if (oneColumn[2].equals("y")){
+                sql = sql.concat("PRIMARY KEY ");
             }
-                connection.createStatement().execute(sql);
-                return true;
+            if (oneColumn[3].equals("n")){
+                sql = sql.concat("NOT NULL ");
+            }
+            if (i < columns.size() - 1){
+                sql = sql.concat(",");
+            }else{
+                sql = sql.concat(")");
+            }
+
+        }
+        try(Statement statement = connection.createStatement()) {
+                return statement.execute(sql);
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());

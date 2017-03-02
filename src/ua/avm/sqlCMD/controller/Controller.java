@@ -12,8 +12,8 @@ import java.util.HashMap;
  */
 public class Controller {
 
-    DataBase db;
-    View view;
+    private DataBase db;
+    private View view;
     private HashMap<String,String> commands = new HashMap<>();
 
 
@@ -51,7 +51,7 @@ public class Controller {
                 view.writeln("For connect to DB please enter: connect -DBMS -DB_Server[:port] [-DB_Name] -user -password");
                 view.writeln("***********************************************************************************************");
                 view.writeln("");
-                inputCommand = view.read().split("\u0020"+"-");
+                inputCommand = view.read().split(view.getCommandDelimiter());
                 db = new Connect(view,commands.get("Command connect to the database.")).getDb(inputCommand);
                 continue;
             }else{
