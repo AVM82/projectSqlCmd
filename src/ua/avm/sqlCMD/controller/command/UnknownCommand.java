@@ -10,12 +10,14 @@ import java.util.HashMap;
 public class UnknownCommand implements Command {
     private View view;
     private HashMap<String,String> commands = new HashMap<>();
-//    private final String COMMAND_SAMPLE;
+    private String commandHelp;
 
 
-    public UnknownCommand(View view, HashMap<String,String> commands) {
+    public UnknownCommand(View view, HashMap<String,String> commands, String commandHelp) {
         this.view = view;
         this.commands = commands;
+        this.commandHelp = commandHelp;
+
     }
 
     @Override
@@ -28,7 +30,6 @@ public class UnknownCommand implements Command {
 
         view.warningWriteln("Unknown command!");
         view.writeln("");
-        String commandHelp = commands.get("Command to view help.");
         new Help(view, commands, commandHelp).doIt(new String[] {commandHelp});
     }
 }

@@ -1,9 +1,6 @@
 package ua.avm.sqlCMD.view;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by AVM on 12.10.2016.
@@ -23,6 +20,7 @@ public class Console implements View {
     public void writeln(String message) {
 
         System.out.println("\u001B[32m" + message);
+//        System.out.println(message);
 
     }
 
@@ -46,9 +44,15 @@ public class Console implements View {
 
     @Override
     public String read() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print(prefix);
-        return scanner.nextLine();
+        try
+        {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print(prefix);
+            return scanner.nextLine();
+        }
+        catch (NoSuchElementException e){
+            return null;
+        }
     }
 
     @Override

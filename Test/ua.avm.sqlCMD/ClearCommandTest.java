@@ -18,33 +18,37 @@ import static org.junit.Assert.assertTrue;
  */
 public class ClearCommandTest {
 
-    private View view;
-    private DataBase postgreSQLDB;
-    private DataBase msServerDB;
-    private DataBase fireBirdDB;
-    private final String[] postgreSQL = "connect -pg -localhost -test -postgres -function root".split("\u0020"+"-");
-    private final String[] msServer = "connect -ms -DBServer -avm -sa -SQL_master".split("\u0020"+"-");
-    private final String[] fireBird = "connect -fb -DBServer -D:/Andromeda/TestDB/sqlCMD.FDB -SYSDBA -masterkey".split("\u0020"+"-");
-    private final String[][] columns = {
+    private static View view;
+    private static DataBase postgreSQLDB;
+    private static DataBase msServerDB;
+    private static DataBase fireBirdDB;
+    private static final String[] postgreSQL = "connect -pg -localhost -test -postgres -function root".split("\u0020"+"-");
+    private static final String[] msServer = "connect -ms -DBServer -avm -sa -SQL_master".split("\u0020"+"-");
+    private static final String[] fireBird = "connect -fb -DBServer -D:/Andromeda/TestDB/sqlCMD.FDB -SYSDBA -masterkey".split("\u0020"+"-");
+    private static final String[][] columns = {
             {"new_field1","integer","y","n"},
             {"new_field2","varchar(20)","n","n"},
             {"new_field3","varchar(10)","n","y"}
     };
-    HashMap<String,String> cmd;
+    static HashMap<String,String> cmd;
     private ArrayList<String[]> tableColumns = new ArrayList<>();
 
-    @Before
-    public void setup() {
+    @BeforeClass
+    public static void fSetup(){
 
         view = new Console();
         cmd = new Commands().getCMD();
+        postgreSQLDB = new Connect(view, cmd.get("Command connect to the database.")).getDb(postgreSQL);
+        msServerDB = new Connect(view, cmd.get("Command connect to the database.")).getDb(msServer);
+        fireBirdDB = new Connect(view, cmd.get("Command connect to the database.")).getDb(fireBird);
+    }
+    @Before
+    public void setup() {
+
         tableColumns.add(columns[0]);
         tableColumns.add(columns[1]);
         tableColumns.add(columns[2]);
 
-        postgreSQLDB = new Connect(view, cmd.get("Command connect to the database.")).getDb(postgreSQL);
-        msServerDB = new Connect(view, cmd.get("Command connect to the database.")).getDb(msServer);
-        fireBirdDB = new Connect(view, cmd.get("Command connect to the database.")).getDb(fireBird);
 
         String insertRow = "new_field1=33|new_field2=value2|new_field3=value3";
 

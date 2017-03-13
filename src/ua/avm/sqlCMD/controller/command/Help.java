@@ -32,10 +32,12 @@ public class Help implements Command {
     public void doIt(String[] command) {
 
         if (Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
-            view.write("Existing commands:\n");
+            view.write("Existing commands:\r\n");
             for (String key : commands.keySet()) {
-                view.writeln("\t"+commands.get(key));
-                view.writeln("\t\t-"+key+"\n");
+                String s = "\t"+commands.get(key);
+                view.writeln(s);
+                s = "\t\t-"+key+"\r\n";
+                view.writeln(s);
             }
         }
     }

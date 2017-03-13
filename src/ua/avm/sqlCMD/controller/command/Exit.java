@@ -1,5 +1,6 @@
 package ua.avm.sqlCMD.controller.command;
 
+import ua.avm.sqlCMD.controller.ExitException;
 import ua.avm.sqlCMD.controller.Utility;
 import ua.avm.sqlCMD.view.View;
 
@@ -27,7 +28,8 @@ public class Exit implements Command {
 
         if (Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
             view.write("The work is completed");
-            System.exit(0);
+            throw new ExitException();
+//            System.exit(0);
         }
     }
 }
