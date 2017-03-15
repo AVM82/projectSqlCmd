@@ -4,9 +4,7 @@ import ua.avm.sqlCMD.controller.Utility;
 import ua.avm.sqlCMD.model.DataBase;
 import ua.avm.sqlCMD.view.View;
 
-/**
- * Created by AVM on 02.02.2017.
- */
+
 public class DeleteRow implements Command {
 
     private final String COMMAND_SAMPLE;
@@ -40,8 +38,8 @@ public class DeleteRow implements Command {
                 view.writeln("***********************************************************************************************");
                 view.writeln("Table " + command[1] + " has following columns");
                 view.write("|");
-                for (int i = 0; i < columnList.length; i++) {
-                    view.write(columnList[i] + "|");
+                for (String aColumnList : columnList) {
+                    view.write(aColumnList + "|");
                 }
                 view.writeln("");
                 view.writeln("Enter a condition for delete row of table:\n"

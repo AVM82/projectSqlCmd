@@ -4,9 +4,6 @@ import ua.avm.sqlCMD.controller.Utility;
 import ua.avm.sqlCMD.model.DataBase;
 import ua.avm.sqlCMD.view.View;
 
-/**
- * Created by AVM on 31.01.2017.
- */
 public class InsertRow  implements Command{
     private final String COMMAND_SAMPLE;
     private View view;
@@ -38,8 +35,8 @@ public class InsertRow  implements Command{
             view.writeln("***********************************************************************************************");
             view.writeln("Table " +command[1]+" has following columns");
             view.write("|");
-            for (int i = 0; i < columnList.length; i++) {
-                view.write(columnList[i]+"|");
+            for (String aColumnList : columnList) {
+                view.write(aColumnList + "|");
             }
             view.writeln("");
             view.writeln("Enter a new row of table:\n"

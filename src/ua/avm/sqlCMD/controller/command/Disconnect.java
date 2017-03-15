@@ -5,9 +5,6 @@ import ua.avm.sqlCMD.model.DataBase;
 import ua.avm.sqlCMD.view.View;
 
 
-/**
- * Created by AVM on 04.11.2016.
- */
 public class Disconnect implements Command {
 
     private View view;

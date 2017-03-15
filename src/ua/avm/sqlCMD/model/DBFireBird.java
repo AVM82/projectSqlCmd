@@ -10,14 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by AVM on 12.10.2016.
- */
-//connect -fb -DBServer:3050 -D:/Andromeda/TestDB/sqlCMD.FDB -SYSDBA -masterkey
-
 public class DBFireBird extends DataBase{
 
-    public DBFireBird(String[] paramLine) throws Exception {
+    DBFireBird(String[] paramLine) throws Exception {
 
         String[] dbs = paramLine[2].split(":");
         server = dbs[0];
@@ -88,8 +83,7 @@ public class DBFireBird extends DataBase{
             fbManager.setUserName("sysdba");
             fbManager.setPassword("masterkey");
             fbManager.start();
-            boolean exist = fbManager.isDatabaseExists(dbName,userName, password);
-            return exist;
+            return fbManager.isDatabaseExists(dbName,userName, password);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return false;
@@ -159,7 +153,8 @@ public class DBFireBird extends DataBase{
                 "suspend; " +
                 "END " +
                 "END ";
-        try(ResultSet resultSet = connection.createStatement().executeQuery(query)) {
+        try(Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()){
                 result.put(resultSet.getString(1), resultSet.getString(2));
@@ -175,7 +170,8 @@ public class DBFireBird extends DataBase{
     @Override
     public boolean isTableExist(String tableName) {
         String query = "select COUNT(*) from rdb$relations where rdb$relation_name = '"+tableName+"'";
-        try(ResultSet resultSet = connection.createStatement().executeQuery(query)) {
+        try(Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)) {
             resultSet.next();
             return resultSet.getBoolean(1);
 
@@ -239,10 +235,10 @@ public class DBFireBird extends DataBase{
     public String buildInsertQuery(String[] insertData, String tableName) {
         String firstPartOfQuery = "insert into "+tableName+"(";
         String secondPartOfQuery = "values (";
-        for (int i = 0; i < insertData.length; i++){
-            String[] tmp = insertData[i].split("\\=");
-            firstPartOfQuery = firstPartOfQuery.concat(tmp[0]+",");
-            secondPartOfQuery = secondPartOfQuery.concat("'"+tmp[1]+"'"+",");
+        for (String anInsertData : insertData) {
+            String[] tmp = anInsertData.split("\\=");
+            firstPartOfQuery = firstPartOfQuery.concat(tmp[0] + ",");
+            secondPartOfQuery = secondPartOfQuery.concat("'" + tmp[1] + "'" + ",");
         }
         firstPartOfQuery = firstPartOfQuery.substring(0,firstPartOfQuery.length()-1).concat(") ");
         secondPartOfQuery = secondPartOfQuery.substring(0,secondPartOfQuery.length()-1).concat(") ");

@@ -4,11 +4,6 @@ import ua.avm.sqlCMD.controller.Utility;
 import ua.avm.sqlCMD.model.DataBase;
 import ua.avm.sqlCMD.view.View;
 
-/**
- * Created by AVM on 07.11.2016.
- *
- *
- */
 public class Connect implements Command {
 
     private final String COMMAND_SAMPLE;

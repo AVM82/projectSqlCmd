@@ -4,10 +4,6 @@ import ua.avm.sqlCMD.controller.Utility;
 import ua.avm.sqlCMD.model.DataBase;
 import ua.avm.sqlCMD.view.View;
 
-
-/**
- * Created by AVM on 18.11.2016.
- */
 public class ListDB implements Command {
     private final String COMMAND_SAMPLE;
     private static final int COLUMN_SIZE = 30;

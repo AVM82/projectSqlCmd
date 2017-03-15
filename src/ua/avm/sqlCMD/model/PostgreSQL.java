@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by AVM on 12.10.2016.
- */
 //connect -pg -localhost -test -postgres -function root
 public class PostgreSQL extends DataBase{
 
@@ -42,7 +39,8 @@ public class PostgreSQL extends DataBase{
         String query = "SELECT pg_database.datname, " +
                 "pg_user.usename FROM pg_database, pg_user " +
                 " WHERE pg_database.datdba = pg_user.usesysid and datistemplate = false";
-        try (ResultSet resultSet = connection.createStatement().executeQuery(query)){
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)){
 
             while (resultSet.next()){
                 result.put(resultSet.getString(1), resultSet.getString(2));
@@ -70,7 +68,8 @@ public class PostgreSQL extends DataBase{
     @Override
     public boolean isDataBaseExist(String dbName) {
         String query = "SELECT 1 FROM pg_database WHERE datname = '"+dbName+"'";
-        try(ResultSet resultSet  = connection.createStatement().executeQuery(query)) {
+        try(Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)) {
             return (resultSet.next())&&(resultSet.getBoolean(1));
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -113,10 +112,10 @@ public class PostgreSQL extends DataBase{
 
                 tablesName.add(resultSet.getString(1));
             }
-            for (int i = 0; i < tablesName.size(); i++) {
-                resultSet = statement.executeQuery("SELECT COUNT(*) from public."+tablesName.get(i));
+            for (String aTablesName : tablesName) {
+                resultSet = statement.executeQuery("SELECT COUNT(*) from public." + aTablesName);
                 resultSet.next();
-                result.put(tablesName.get(i), resultSet.getString(1));
+                result.put(aTablesName, resultSet.getString(1));
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -124,7 +123,9 @@ public class PostgreSQL extends DataBase{
         finally {
 
             try {
-                resultSet.close();
+                if (resultSet != null) {
+                    resultSet.close();
+                }
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
@@ -139,7 +140,8 @@ public class PostgreSQL extends DataBase{
     public boolean isTableExist(String tableName) {
         String query = "SELECT EXISTS ( SELECT 1"+
                 " FROM information_schema.tables WHERE  table_name = '"+tableName+"')";
-        try (ResultSet resultSet = connection.createStatement().executeQuery(query)){
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)){
             resultSet.next();
             return resultSet.getBoolean(1);
 
@@ -203,10 +205,10 @@ public class PostgreSQL extends DataBase{
     public String buildInsertQuery(String[] insertData, String tableName) {
         String firstPartOfQuery = "insert into public."+tableName+"(";
         String secondPartOfQuery = "values (";
-        for (int i = 0; i < insertData.length; i++){
-            String[] tmp = insertData[i].split("\\=");
-            firstPartOfQuery = firstPartOfQuery.concat(tmp[0]+",");
-            secondPartOfQuery = secondPartOfQuery.concat("'"+tmp[1]+"'"+",");
+        for (String anInsertData : insertData) {
+            String[] tmp = anInsertData.split("\\=");
+            firstPartOfQuery = firstPartOfQuery.concat(tmp[0] + ",");
+            secondPartOfQuery = secondPartOfQuery.concat("'" + tmp[1] + "'" + ",");
         }
         firstPartOfQuery = firstPartOfQuery.substring(0,firstPartOfQuery.length()-1).concat(") ");
         secondPartOfQuery = secondPartOfQuery.substring(0,secondPartOfQuery.length()-1).concat(") ");

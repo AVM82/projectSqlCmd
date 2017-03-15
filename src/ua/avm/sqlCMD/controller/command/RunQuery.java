@@ -5,9 +5,6 @@ import ua.avm.sqlCMD.view.View;
 
 import java.util.ArrayList;
 
-/**
- * Created by AVM on 02.02.2017.
- */
 public class RunQuery implements Command {
 
     private static final int COLUMN_SIZE = 20;

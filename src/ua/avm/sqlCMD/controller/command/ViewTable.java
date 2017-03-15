@@ -6,9 +6,6 @@ import ua.avm.sqlCMD.view.View;
 
 import java.util.ArrayList;
 
-/**
- * Created by AVM on 16.01.2017.
- */
 public class ViewTable implements Command{
 
     private View view;

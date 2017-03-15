@@ -5,9 +5,6 @@ import ua.avm.sqlCMD.view.View;
 
 import java.util.HashMap;
 
-/**
- * Created by AVM on 17.02.2017.
- */
 public class Help implements Command {
 
     private View view;

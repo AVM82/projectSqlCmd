@@ -6,9 +6,7 @@ import ua.avm.sqlCMD.view.View;
 
 import java.util.ArrayList;
 
-/**
- * Created by AVM on 05.01.2017.
- */
+
 public class CreateTab implements Command{
 
     private final String COMMAND_SAMPLE;

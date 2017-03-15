@@ -4,9 +4,6 @@ import ua.avm.sqlCMD.view.View;
 
 import java.util.HashMap;
 
-/**
- * Created by AVM on 02.03.2017.
- */
 public class UnknownCommand implements Command {
     private View view;
     private HashMap<String,String> commands = new HashMap<>();

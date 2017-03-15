@@ -3,19 +3,16 @@ package ua.avm.sqlCMD.model;
 import java.sql.*;
 import java.util.ArrayList;
 
-/**
- * Created by AVM on 12.10.2016.
- */
 public abstract class DataBase implements DBManager{
 
-    protected String userName;
+    String userName;
     protected String password;
 
-    protected String dbaseName = null;
+    String dbaseName = null;
     protected String port;
     protected String server;
 
-    private boolean isConnect;
+    private boolean isConnect = false;
 
     Connection connection = null;
     String DBaseType = "> ";
@@ -23,11 +20,16 @@ public abstract class DataBase implements DBManager{
     final String MSSQLSERVER = "MS SQL Server> ";
     final String POSTGRESQL = "PostgreSQL> ";
     private static  DataBase dataBase;
-    protected final int NO_DB = 5; // count of parameters without database
-    protected int index = 3; // index of dbName parameters
+    final int NO_DB = 5; // count of parameters without database
+    int index = 3; // index of dbName parameters
 
     public boolean isConnect() {
-        return isConnect;
+        try {
+            return !connection.isClosed();
+        } catch (SQLException message) {
+            System.err.println("ERROR! \n"+ message);
+            return true;
+        }
     }
 
     public void setConnect(boolean connect) {
@@ -41,6 +43,7 @@ public abstract class DataBase implements DBManager{
             //connect to FireBird
             if (paramLine[1].equals("fb")){
                 dataBase = new DBFireBird(paramLine);
+
 
             }else {
 
@@ -94,7 +97,9 @@ public abstract class DataBase implements DBManager{
 
 
         ArrayList<String[]> tableData = new ArrayList<>();
-        try(ResultSet resultSet = connection.createStatement().executeQuery(query))  {
+        try(Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query))  {
+
             ArrayList<String> rowData = new ArrayList<>();
             ResultSetMetaData rsMetaData = resultSet.getMetaData();
             int numberOfColumns = rsMetaData.getColumnCount();
@@ -141,7 +146,9 @@ public abstract class DataBase implements DBManager{
         finally {
 
             try {
-                columns.close();
+                if (columns != null) {
+                    columns.close();
+                }
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }

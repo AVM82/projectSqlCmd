@@ -6,10 +6,6 @@ import ua.avm.sqlCMD.view.View;
 
 import java.util.HashMap;
 
-
-/**
- * Created by AVM on 12.10.2016.
- */
 public class Controller {
 
     private DataBase db;
@@ -99,12 +95,14 @@ public class Controller {
 
     private String[] getCommand(View view) {
         String line;
-        String[] inputCommand;
+        String[] inputCommand = new String[0];
         line = view.read();
         if (line == null){
             new Exit(view,commands.get("Exit the program.")).doIt(new String[] {commands.get("Exit the program.")});
         }
-        inputCommand = line.split(view.getCommandDelimiter());
+        if (line != null) {
+            inputCommand = line.split(view.getCommandDelimiter());
+        }
         return inputCommand;
     }
 }

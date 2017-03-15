@@ -2,17 +2,14 @@ package ua.avm.sqlCMD.model;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by AVM on 11.10.2016.
- */
+
 //connect -ms -DBServer -avm -sa -SQL_master
 public class MSServer extends DataBase{
 
-    public MSServer(String[] paramLine) throws Exception {
+    MSServer(String[] paramLine) throws Exception {
         String[] dbs = paramLine[2].split(":");
         server = dbs[0];
         if (dbs.length > 1){
@@ -40,7 +37,8 @@ public class MSServer extends DataBase{
 
         HashMap<String, String> result = new HashMap<>();
         String query = "SELECT name, suser_sname(owner_sid) FROM sys.databases WHERE database_id > 6";
-        try(ResultSet resultSet = connection.createStatement().executeQuery(query)) {
+        try(Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()){
                 result.put(resultSet.getString(1), resultSet.getString(2));
@@ -70,7 +68,8 @@ public class MSServer extends DataBase{
 
         String query = "SELECT 1 FROM master.dbo.sysdatabases " +
                 "as t WHERE t.name = '"+dbName+"'";
-        try(ResultSet resultSet = connection.createStatement().executeQuery(query)) {
+        try(Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)) {
             return (resultSet.next())&&(resultSet.getBoolean(1));
 
         } catch (SQLException e) {
@@ -116,7 +115,8 @@ public class MSServer extends DataBase{
                 " ON ta.schema_id = sc.schema_id" +
                 " WHERE ta.is_ms_shipped = 0 AND pa.index_id IN (1,0)" +
                 " GROUP BY sc.name,ta.name";
-        try(ResultSet resultSet = connection.createStatement().executeQuery(query)) {
+        try(Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()){
                 result.put(resultSet.getString(1), resultSet.getString(2));
@@ -137,7 +137,8 @@ public class MSServer extends DataBase{
                 "WHERE TABLE_TYPE='BASE TABLE' " +
                 "AND TABLE_NAME='"+tableName+"') " +
                 "SELECT 1 AS res ELSE SELECT 0 AS res";
-        try(ResultSet resultSet = connection.createStatement().executeQuery(query)) {
+        try(Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)) {
             resultSet.next();
             return resultSet.getBoolean(1);
 
@@ -220,10 +221,10 @@ public class MSServer extends DataBase{
     public String buildInsertQuery(String[] insertData, String tableName) {
         String firstPartOfQuery = "use "+dbaseName+" insert into dbo."+tableName+"(";
         String secondPartOfQuery = "values (";
-        for (int i = 0; i < insertData.length; i++){
-            String[] tmp = insertData[i].split("\\=");
-            firstPartOfQuery = firstPartOfQuery.concat(tmp[0]+",");
-            secondPartOfQuery = secondPartOfQuery.concat("'"+tmp[1]+"'"+",");
+        for (String anInsertData : insertData) {
+            String[] tmp = anInsertData.split("\\=");
+            firstPartOfQuery = firstPartOfQuery.concat(tmp[0] + ",");
+            secondPartOfQuery = secondPartOfQuery.concat("'" + tmp[1] + "'" + ",");
         }
         firstPartOfQuery = firstPartOfQuery.substring(0,firstPartOfQuery.length()-1).concat(") ");
         secondPartOfQuery = secondPartOfQuery.substring(0,secondPartOfQuery.length()-1).concat(") ");

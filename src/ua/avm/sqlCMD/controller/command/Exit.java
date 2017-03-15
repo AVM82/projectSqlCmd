@@ -4,9 +4,6 @@ import ua.avm.sqlCMD.controller.ExitException;
 import ua.avm.sqlCMD.controller.Utility;
 import ua.avm.sqlCMD.view.View;
 
-/**
- * Created by AVM on 02.11.2016.
- */
 public class Exit implements Command {
 
     private View view;

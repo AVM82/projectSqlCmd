@@ -5,10 +5,6 @@ import ua.avm.sqlCMD.model.DataBase;
 import ua.avm.sqlCMD.view.View;
 
 
-
-/**
- * Created by AVM on 05.12.2016.
- */
 public class ListTab implements Command {
 
     private View view;

@@ -3,9 +3,7 @@ package ua.avm.sqlCMD.view;
 import java.util.ArrayList;
 import java.util.Map;
 
-/**
- * Created by AVM on 12.10.2016.
- */
+
 public interface View {
 
     String COMMAND_DELIMITER = "\u0020"+"-";

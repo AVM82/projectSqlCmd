@@ -2,12 +2,9 @@ package ua.avm.sqlCMD.controller.command;
 
 import ua.avm.sqlCMD.controller.Utility;
 import ua.avm.sqlCMD.model.DataBase;
-import ua.avm.sqlCMD.view.Console;
 import ua.avm.sqlCMD.view.View;
 
-/**
- * Created by AVM on 10.01.2017.
- */
+
 public class DeleteTab implements Command{
 
     private final String COMMAND_SAMPLE;

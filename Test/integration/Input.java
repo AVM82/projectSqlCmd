@@ -3,9 +3,6 @@ package integration;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Created by AVM on 09.03.2017.
- */
 public class Input extends InputStream {
     private String line;
     private boolean endLine = false;

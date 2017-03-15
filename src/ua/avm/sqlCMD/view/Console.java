@@ -2,9 +2,6 @@ package ua.avm.sqlCMD.view;
 
 import java.util.*;
 
-/**
- * Created by AVM on 12.10.2016.
- */
 public class Console implements View {
 
     private String prefix = "> ";
@@ -62,10 +59,10 @@ public class Console implements View {
             this.write("_");
         }
         this.writeln("");
-        for (int i = 0; i < countColumns; i++){
+        for (String aColumnList : columnList) {
 
             this.write("|");
-            this.fWriteln(columnList[i],sizeCol);
+            this.fWriteln(aColumnList, sizeCol);
         }
         this.writeln("|");
         for (int i = 0; i < sizeCol*countColumns+3; i++) {
@@ -80,10 +77,10 @@ public class Console implements View {
     public void printTableData(ArrayList<String[]> tableData, int sizeCol) {
 
         for (String[] oneRow: tableData){
-            for (int i = 0; i < oneRow.length; i++) {
+            for (String anOneRow : oneRow) {
 
                 this.write("|");
-                this.fWriteln(oneRow[i],sizeCol);
+                this.fWriteln(anOneRow, sizeCol);
             }
             this.write("|");
             this.writeln("");

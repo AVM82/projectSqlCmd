@@ -1,16 +1,9 @@
 package ua.avm.sqlCMD.controller;
 
 import ua.avm.sqlCMD.view.View;
-
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
-import java.util.Set;
 
-/**
- * Created by AVM on 06.12.2016.
- */
+
 public class Utility {
 
     public static boolean verifyName(String name){

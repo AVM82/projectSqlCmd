@@ -5,11 +5,8 @@ import org.junit.Test;
 import ua.avm.sqlCMD.sqlCmdMain;
 
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
+import java.nio.charset.StandardCharsets;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,7 +17,7 @@ public class IntegrationTest {
     private ByteArrayOutputStream out;
     private String connectLine;
 
-    public String getData() {
+    private String getData() {
         try {
             String result = new String(out.toByteArray(), "UTF-8");
             out.reset();

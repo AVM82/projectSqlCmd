@@ -5,9 +5,6 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-/**
- * Created by AVM on 13.03.2017.
- */
 public class expected {
 
     static String readFile(String path, Charset encoding) throws IOException
