@@ -30,10 +30,7 @@ public class Disconnect implements Command {
     public void doIt(String[] command) {
 
         if (Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
-            if (db == null){
-                view.writeln("There are no active connections!");
-            }
-            else {
+            if (db != null){
                 db.closeConnection();
                 view.setPrefix(">");
                 view.writeln("Connection with database is closed.");

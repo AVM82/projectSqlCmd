@@ -42,9 +42,9 @@ public class DeleteRow implements Command {
                     view.write(aColumnList + "|");
                 }
                 view.writeln("");
-                view.writeln("Enter a condition for delete row of table:\n"
-                        + "columnName=value\n"
-                        + "***********************************************************************************************\n");
+                view.writeln("Enter a condition for delete row of table:");
+                view.writeln("columnName=value");
+                view.writeln("***********************************************************************************************");
                 view.writeln("");
                 db.runQuery(db.buildDeleteQuery(view.read().split("\\="), command[1]));
             }

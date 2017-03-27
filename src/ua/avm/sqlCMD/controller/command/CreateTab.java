@@ -45,14 +45,14 @@ public class CreateTab implements Command{
             }
             ArrayList<String[]> tableColumns = new ArrayList<>();
             view.writeln("***********************************************************************************************");
-            view.writeln("Enter a new column of table: field name|field type|if the field is primary(y/n)|if is NULL (y/n)\n"
-                    + "end\n"
-                    + "For example:\n"
-                    + "new_Field1|integer|y|n\n"
-                    + "new_Field2|varchar(20)|n|n\n"
-                    + "new_Field3|varchar(10)|n|y\n"
-                    + "end\n"
-                    + "***********************************************************************************************\n");
+            view.writeln("Enter a new column of table: field name|field type|if the field is primary(y/n)|if is NULL (y/n)");
+            view.writeln("end");
+            view.writeln("For example:");
+            view.writeln("new_Field1|integer|y|n");
+            view.writeln("new_Field2|varchar(20)|n|n");
+            view.writeln("new_Field3|varchar(10)|n|y");
+            view.writeln("end");
+            view.writeln("***********************************************************************************************");
             view.writeln("");
             String line = view.read();
             while (!line.equals("end")) {

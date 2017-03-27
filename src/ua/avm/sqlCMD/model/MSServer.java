@@ -82,7 +82,7 @@ public class MSServer extends DataBase{
     public boolean dropDB(String dbName) {
         String query = "DROP DATABASE "+dbName;
         try (Statement statement = connection.createStatement()) {
-            return statement.execute(query);
+            return !statement.execute(query);
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -95,7 +95,7 @@ public class MSServer extends DataBase{
         String query = "DROP TABLE "+tableName;
 
         try(Statement statement = connection.createStatement()) {
-            return statement.execute(query);
+            return !statement.execute(query);
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -174,7 +174,7 @@ public class MSServer extends DataBase{
 
         }
         try (Statement statement = connection.createStatement()){
-            return  statement.execute(sql);
+            return  !statement.execute(sql);
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());

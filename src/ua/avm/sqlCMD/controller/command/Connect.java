@@ -26,7 +26,7 @@ public class Connect implements Command {
     @Override
     public void doIt(String[] command) {
 
-        db = getDb(command);
+//        do Nothing
 
     }
 

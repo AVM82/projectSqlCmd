@@ -127,7 +127,7 @@ public class DBFireBird extends DataBase{
     @Override
     public boolean dropTable(String tableName) {
         try (Statement statement = connection.createStatement()) {
-            return  statement.execute("DROP TABLE "+tableName);
+            return  !statement.execute("DROP TABLE "+tableName);
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -205,7 +205,7 @@ public class DBFireBird extends DataBase{
 
         }
         try(Statement statement = connection.createStatement()) {
-            return  statement.execute(query);
+            return  !statement.execute(query);
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());

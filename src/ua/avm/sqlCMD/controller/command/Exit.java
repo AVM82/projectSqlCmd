@@ -26,7 +26,6 @@ public class Exit implements Command {
         if (Utility.verifyParams(COMMAND_SAMPLE,view.getCommandDelimiter(),command.length - 1, view)){
             view.write("The work is completed");
             throw new ExitException();
-//            System.exit(0);
         }
     }
 }

@@ -17,7 +17,6 @@ public class Console implements View {
     public void writeln(String message) {
 
         System.out.println("\u001B[32m" + message);
-//        System.out.println(message);
 
     }
 

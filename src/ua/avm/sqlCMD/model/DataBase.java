@@ -164,7 +164,7 @@ public abstract class DataBase implements DBManager{
         try (Statement statement = connection.createStatement()){
             statement.execute(query);
 
-            System.out.println("The command completed successfully!\n");
+            System.out.println("The command completed successfully!");
 
 
         } catch (SQLException e) {

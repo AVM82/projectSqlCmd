@@ -33,15 +33,18 @@ public class InsertRow  implements Command{
 
             String[] columnList = db.getColumnList(command[1]);
             view.writeln("***********************************************************************************************");
-            view.writeln("Table " +command[1]+" has following columns");
+            view.write("Table ");
+            view.write(command[1]);
+            view.writeln(" has following columns");
             view.write("|");
             for (String aColumnList : columnList) {
-                view.write(aColumnList + "|");
+                view.write(aColumnList);
+                view.write("|");
             }
             view.writeln("");
-            view.writeln("Enter a new row of table:\n"
-                    + "row1=value1|row2=value2|...|rowN=valueN\n"
-                    + "***********************************************************************************************\n");
+            view.writeln("Enter a new row of table:");
+            view.writeln("row1=value1|row2=value2|...|rowN=valueN");
+            view.writeln("***********************************************************************************************");
             view.writeln("");
             db.runQuery(db.buildInsertQuery(view.read().split("\\|"),command[1]));
 

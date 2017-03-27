@@ -41,9 +41,9 @@ public class UpdateRow implements Command {
                 view.write(aColumnList + "|");
             }
             view.writeln("");
-            view.writeln("Enter a condition for update row of table:\n"
-                    + "columnName=newValue|columnName=Value\n"
-                    + "***********************************************************************************************\n");
+            view.writeln("Enter a condition for update row of table:");
+            view.writeln("columnName=newValue|columnName=Value");
+            view.writeln("***********************************************************************************************");
             view.writeln("");
             db.runQuery(db.buildUpdateQuery(view.read().split("\\|"),command[1]));
 

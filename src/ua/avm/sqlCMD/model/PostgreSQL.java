@@ -81,7 +81,7 @@ public class PostgreSQL extends DataBase{
     public boolean dropDB(String dbName) {
 
         try (Statement statement = connection.createStatement()) {
-            return statement.execute("DROP DATABASE "+dbName);
+            return !statement.execute("DROP DATABASE "+dbName);
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -92,7 +92,7 @@ public class PostgreSQL extends DataBase{
     @Override
     public boolean dropTable(String tableName) {
         try (Statement statement = connection.createStatement()) {
-            return  statement.execute("DROP TABLE "+tableName);
+            return  !statement.execute("DROP TABLE "+tableName);
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -174,7 +174,8 @@ public class PostgreSQL extends DataBase{
 
         }
         try(Statement statement = connection.createStatement()) {
-                return statement.execute(sql);
+
+            return !statement.execute(sql);
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());

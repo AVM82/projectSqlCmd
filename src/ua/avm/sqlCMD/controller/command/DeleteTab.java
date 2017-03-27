@@ -34,7 +34,10 @@ public class DeleteTab implements Command{
 
                     view.writeln("Table with name \""+command[1]+"\" is deleted successfully");
                 }
+            } else {
+                view.writeln("Deleting table canceled.");
             }
+
         }
     }
 }
