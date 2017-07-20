@@ -31,8 +31,8 @@ public class IntegrationTest {
 
     @Before
     public void setup(){
-        connectLine = "connect -pg -localhost -test -postgres -function root";
-        wrongConnectLine = "conect -pg -localhost -test -postgres -function root";
+        connectLine = "connect -pg -localhost -test -postgres -postgres";
+        wrongConnectLine = "conect -pg -test -postgres -postgres -postgres";
 
         out = new ByteArrayOutputStream();
         in = new Input();
@@ -136,6 +136,8 @@ public class IntegrationTest {
         in.add("n");
         in.add("clear -new_tab");
         in.add("y");
+        //The following command generates an error ---> "ОШИБКА: таблица "tablename" не существует"
+        // it`s OK
         in.add("drop -tableName");
         in.add("y");
         in.add("drop -new_tab");

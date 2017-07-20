@@ -1,6 +1,6 @@
 package ua.avm.sqlCMD.testFireBird;
 
-import ua.avm.sqlCMD.Commands;
+import ua.avm.sqlCMD.controller.Commands;
 import ua.avm.sqlCMD.model.DataBase;
 import ua.avm.sqlCMD.view.Console;
 import ua.avm.sqlCMD.view.View;
@@ -38,7 +38,7 @@ public abstract class TempFB {
 
     public TempFB() {
 
-        cmd = new Commands().getCMD();
+        cmd = Commands.getCMD();
 
     }
 }

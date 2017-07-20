@@ -1,6 +1,6 @@
 package ua.avm.sqlCMD.testMSSQLServer;
 
-import ua.avm.sqlCMD.Commands;
+import ua.avm.sqlCMD.controller.Commands;
 import ua.avm.sqlCMD.model.DataBase;
 import ua.avm.sqlCMD.view.Console;
 import ua.avm.sqlCMD.view.View;
@@ -36,7 +36,7 @@ public abstract class TempMSSQLServer {
 
     public TempMSSQLServer() {
 
-        cmd = new Commands().getCMD();
+        cmd = Commands.getCMD();
 
     }
 }

@@ -1,6 +1,6 @@
 package ua.avm.sqlCMD.testPostgreSQL;
 
-import ua.avm.sqlCMD.Commands;
+import ua.avm.sqlCMD.controller.Commands;
 import ua.avm.sqlCMD.model.DataBase;
 import ua.avm.sqlCMD.view.Console;
 import ua.avm.sqlCMD.view.View;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 
 public abstract class TempPostgreSQL {
-    protected final String[] postgreSQL = "connect -pg -localhost -test -postgres -function root".split("\u0020"+"-");
+    protected final String[] postgreSQL = "connect -pg -localhost -test -postgres -postgres".split("\u0020"+"-");
 
     protected String insertRow = "new_field1=33|new_field2=value2|new_field3=value3";
     String updateRow = "new_field2=newValue|new_field2=value2";
@@ -36,7 +36,7 @@ public abstract class TempPostgreSQL {
 
     public TempPostgreSQL() {
 
-        cmd = new Commands().getCMD();
+        cmd = Commands.getCMD();
 
     }
 }

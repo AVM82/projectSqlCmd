@@ -1,14 +1,12 @@
-package ua.avm.sqlCMD;
+package ua.avm.sqlCMD.controller;
 
 import java.util.HashMap;
 
-/**
- * Created by AVM on 20.02.2017.
- */
-public class Commands {
-    private HashMap<String,String> commands = new HashMap<>();
 
-    public Commands() {
+public final class Commands {
+    private final static HashMap<String,String> commands = new HashMap<>();
+
+    static {
         commands.put("Exit the program.","exit");
         commands.put("Disconnecting from the server.","disconnect");
         commands.put("Command lists the databases.","ldb");
@@ -24,8 +22,9 @@ public class Commands {
         commands.put("Command executes query.","query -queryLine");
         commands.put("Command connect to the database.","connect -DBMS -DB_Server[:port] -DB_Name -user -password");
         commands.put("Command to view help.","help");
+        commands.put("Command clears the table.","clear -tableName");
     }
-    public HashMap<String,String> getCMD(){
+    public static HashMap<String,String> getCMD(){
         return commands;
     }
 }

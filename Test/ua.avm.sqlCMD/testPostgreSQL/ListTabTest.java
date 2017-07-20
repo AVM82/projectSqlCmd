@@ -21,7 +21,7 @@ public class ListTabTest extends TempPostgreSQL {
         db.createTab(tableName,tableColumns);
         db.runQuery(db.buildInsertQuery(insertRow.split(view.getSecondaryDelimiter()),tableName));
         expected.put(tableName,"1");
-        expected.put("user","3");
+        //expected.put("user","3");
     }
 
     @Test
