@@ -26,8 +26,7 @@ public class Connect implements Command {
     @Override
     public void doIt(String[] command) {
 
-//        do Nothing
-
+        getDb(command);
     }
 
     public DataBase getDb(String[] command) {
@@ -36,7 +35,7 @@ public class Connect implements Command {
             new Exit(view,"exit").doIt(command);
         }
 
-        int countSample = Utility.countOfParam(COMMAND_SAMPLE,view.getCommandDelimiter());
+        int countSample = Utility.countOfParam(COMMAND_SAMPLE,view.getCommandDelimiter())-1;
         int countCommand = command.length - 1;
 
         if ((countCommand != countSample)&&(countCommand != countSample - 1)){

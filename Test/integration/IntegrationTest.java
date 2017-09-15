@@ -1,5 +1,6 @@
 package integration;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ua.avm.sqlCMD.sqlCmdMain;
@@ -17,7 +18,6 @@ public class IntegrationTest {
     private ByteArrayOutputStream out;
     private String connectLine;
     private String wrongConnectLine;
-    private String wrongConnectLine2;
 
     private String getData() {
         try {

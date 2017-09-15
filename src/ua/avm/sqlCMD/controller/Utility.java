@@ -14,6 +14,7 @@ public class Utility {
     }
 
     public static boolean verifyParams(String sample,String delimiter, int countInputParams, View view){
+
         int countOfParam = Utility.countOfParam(sample, delimiter) - 1;
         if (countOfParam != countInputParams)
         {

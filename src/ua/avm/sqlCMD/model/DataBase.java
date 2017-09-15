@@ -1,5 +1,7 @@
 package ua.avm.sqlCMD.model;
 
+import ua.avm.sqlCMD.view.Console;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -25,10 +27,13 @@ public abstract class DataBase implements DBManager{
 
     public boolean isConnect() {
         try {
+            if(connection == null) {
+                throw new SQLException();
+            }
             return !connection.isClosed();
         } catch (SQLException message) {
-            System.err.println("ERROR! \n"+ message);
-            return true;
+            System.err.println("ERROR! Connection = NULL");
+            return false;
         }
     }
 
@@ -86,9 +91,7 @@ public abstract class DataBase implements DBManager{
             dataBase.dbaseName = null;
             DBaseType = "> ";
         } catch (SQLException e) {
-            String message = e.getMessage();
-
-            System.out.println("Close connection error. \n"+ message);
+            System.out.println("Close connection error. \n"+ e.getMessage());
         }
 
     }

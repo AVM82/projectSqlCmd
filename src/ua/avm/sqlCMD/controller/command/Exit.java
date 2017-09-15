@@ -27,5 +27,8 @@ public class Exit implements Command {
             view.write("The work is completed");
             throw new ExitException();
         }
+        else {
+            view.warningWriteln("The \"Exit\" command has no parameters");
+        }
     }
 }

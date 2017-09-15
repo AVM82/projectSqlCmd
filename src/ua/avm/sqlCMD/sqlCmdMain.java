@@ -13,6 +13,8 @@ public class sqlCmdMain {
         Controller ctrl = new Controller(view);
         ctrl.run(view);
     }
+
+
 }
 
 

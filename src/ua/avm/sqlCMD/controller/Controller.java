@@ -22,7 +22,6 @@ public class Controller {
     public void run(View view) {
         try {
             while (true) {
-
                 String[] inputCommand;
                 if ((db == null) || (!db.isConnect())) {
                     view.writeln("");
@@ -82,6 +81,7 @@ public class Controller {
         String[] inputCommand = new String[0];
         line = view.read();
         if (line == null){
+            view.warningWriteln("FATAL ERROR!\n The application will be closed!");
             new Exit(view,commands.get("Exit the program.")).doIt(new String[] {commands.get("Exit the program.")});
         }
         if (line != null) {
